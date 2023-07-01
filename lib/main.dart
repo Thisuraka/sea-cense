@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sea_cense/views/onboarding/splashView.dart';
+import 'package:sea_cense/views/onboarding/info_view.dart';
+import 'package:sea_cense/views/onboarding/onboarding.dart';
+import 'package:sea_cense/views/onboarding/splash_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(
-        body: SplashView(),
-      ),
+      home: const OnboardingView(),
     );
   }
 }
