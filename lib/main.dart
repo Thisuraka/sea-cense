@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sea_cense/views/home/home_view.dart';
 import 'package:sea_cense/views/onboarding/info_view.dart';
 import 'package:sea_cense/views/onboarding/onboarding.dart';
 import 'package:sea_cense/views/onboarding/splash_view.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignUpView(),
+      home: const HomeView(),
     );
   }
 }
