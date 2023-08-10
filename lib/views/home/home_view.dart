@@ -64,7 +64,9 @@ class _HomeViewState extends State<HomeView> {
                 HomeTileWidget(
                   icon: Icons.dashboard,
                   title: 'Processed',
-                  onTap: () {},
+                  onTap: () {
+                    addImage();
+                  },
                 ),
               ],
             ),
@@ -78,7 +80,9 @@ class _HomeViewState extends State<HomeView> {
                 HomeTileWidget(
                   icon: Icons.new_label,
                   title: 'Juvenile',
-                  onTap: () {},
+                  onTap: () {
+                    addImage();
+                  },
                 ),
               ],
             )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sea_cense/style.dart';
+import 'package:sea_cense/views/home/home_view.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
 import 'package:sea_cense/widgets/header_widget.dart';
 import 'package:sea_cense/widgets/rounded_textbox_widget.dart';
@@ -21,6 +22,7 @@ class SignUpView extends StatelessWidget {
             children: [
               const HeaderWidget(
                 text: "Create Account",
+                showBack: true,
               ),
               Container(
                 alignment: Alignment.centerLeft,
@@ -49,7 +51,9 @@ class SignUpView extends StatelessWidget {
               CommonButtonWidget(
                 text: "Sign up",
                 size: MediaQuery.of(context).size.width / 1.3,
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
+                },
               ),
             ],
           ),

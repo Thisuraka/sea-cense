@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sea_cense/style.dart';
+import 'package:sea_cense/views/home/home_view.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
 import 'package:sea_cense/widgets/header_widget.dart';
 import 'package:sea_cense/widgets/rounded_textbox_widget.dart';
@@ -20,6 +21,7 @@ class SignInView extends StatelessWidget {
             children: [
               const HeaderWidget(
                 text: "Welcome back",
+                showBack: true,
               ),
               Container(
                 alignment: Alignment.centerLeft,
@@ -44,7 +46,9 @@ class SignInView extends StatelessWidget {
               CommonButtonWidget(
                 text: "Sign in",
                 size: MediaQuery.of(context).size.width / 1.3,
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
+                },
               ),
             ],
           ),

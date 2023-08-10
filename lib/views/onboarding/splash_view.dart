@@ -15,8 +15,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Timer(const Duration(seconds: 4), () {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const InfoView()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const InfoView()));
     });
     super.initState();
   }

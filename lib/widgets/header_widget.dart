@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String text;
-  const HeaderWidget({super.key, required this.text});
+  final bool showBack;
+  const HeaderWidget({super.key, required this.text, this.showBack = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +23,34 @@ class HeaderWidget extends StatelessWidget {
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  'assets/images/logo_without_text.png',
-                  height: 100,
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    showBack
+                        ? GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Container(
+                            width: 20,
+                          ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Image.asset(
+                      'assets/images/logo_without_text.png',
+                      height: 100,
+                    ),
+                  ],
                 ),
                 Text(
                   text,
