@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sea_cense/views/onboarding/onboarding.dart';
-import 'package:sea_cense/widgets/commonButtonWidget.dart';
+import 'package:sea_cense/widgets/common_button_widget.dart';
 
 class InfoView extends StatelessWidget {
   const InfoView({super.key});
@@ -41,15 +41,12 @@ class InfoView extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(right: 40, top: 40),
               alignment: Alignment.centerRight,
-              child: GestureDetector(
+              child: CommonButtonWidget(
+                text: "Next",
+                size: MediaQuery.of(context).size.width / 3,
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const OnboardingView()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const OnboardingView()));
                 },
-                child: CommonButtonWidget(
-                  text: "Next",
-                  size: MediaQuery.of(context).size.width / 3,
-                ),
               ),
             ),
           ],

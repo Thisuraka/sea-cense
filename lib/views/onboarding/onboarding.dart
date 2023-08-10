@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sea_cense/widgets/commonButtonWidget.dart';
-import 'package:sea_cense/widgets/headerWidget.dart';
+import 'package:sea_cense/views/signInUp/sign_in_view.dart';
+import 'package:sea_cense/views/signInUp/sign_up_view.dart';
+import 'package:sea_cense/widgets/common_button_widget.dart';
+import 'package:sea_cense/widgets/header_widget.dart';
 
 class OnboardingView extends StatelessWidget {
   const OnboardingView({super.key});
@@ -22,6 +24,9 @@ class OnboardingView extends StatelessWidget {
             CommonButtonWidget(
               text: "Sign in",
               size: MediaQuery.of(context).size.width / 1.3,
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignInView()));
+              },
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height / 25,
@@ -29,6 +34,9 @@ class OnboardingView extends StatelessWidget {
             CommonButtonWidget(
               text: "Sign up",
               size: MediaQuery.of(context).size.width / 1.3,
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpView()));
+              },
             ),
           ],
         ),
