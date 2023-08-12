@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sea_cense/viewmodels/sign_in_up_viewmodel.dart';
 import 'package:sea_cense/views/signInUp/sign_in_view.dart';
 import 'package:sea_cense/views/signInUp/sign_up_view.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
@@ -25,7 +27,12 @@ class OnboardingView extends StatelessWidget {
               text: "Sign in",
               size: MediaQuery.of(context).size.width / 1.3,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignInView()));
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider(
+                    create: (context) => SignInUpViewModel(),
+                    child: const SignInView(),
+                  ),
+                ));
               },
             ),
             SizedBox(
@@ -35,7 +42,12 @@ class OnboardingView extends StatelessWidget {
               text: "Sign up",
               size: MediaQuery.of(context).size.width / 1.3,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpView()));
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider(
+                    create: (context) => SignInUpViewModel(),
+                    child: const SignUpView(),
+                  ),
+                ));
               },
             ),
           ],
