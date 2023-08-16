@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sea_cense/models/base_api_response.dart';
 import 'package:sea_cense/utils/enums/request_types.dart';
-import 'package:sea_cense/utils/storage.dart';
 import 'package:sea_cense/utils/urls.dart';
 
 class Network {
@@ -15,53 +14,43 @@ class Network {
     //Var init
     final dio = Dio();
     Response? response;
-    String? token = await SharedPreference.getAccessToken();
-
-    Map<String, dynamic> clientHeaders = {'authorization': 'Bearer $token'};
-
-    if (headers != null) {
-      clientHeaders = {'authorization': 'Bearer $token', ...headers};
-    }
-
-    // print('Token in client $endpointPath $token');
 
     //Request types
     try {
       switch (method) {
         case RequestType.get:
           response = await dio.get('${UrlConstants.baseUrl}$endpointPath',
-              queryParameters: queryParams, options: Options(headers: clientHeaders));
+              queryParameters: queryParams, options: Options());
           break;
         case RequestType.post:
-          response = response = await dio.post('${UrlConstants.baseUrl}$endpointPath',
-              options: Options(headers: clientHeaders),
-              data: isFormData ? FormData.fromMap(body ?? {}) : body);
+          response = await dio.post('${UrlConstants.baseUrl}$endpointPath',
+              options: Options(), data: isFormData ? FormData.fromMap(body ?? {}) : body);
+
           break;
         case RequestType.put:
-          response = response = await dio.put('${UrlConstants.baseUrl}$endpointPath',
-              options: Options(headers: clientHeaders),
-              data: isFormData ? FormData.fromMap(body ?? {}) : body);
+          response = await dio.put('${UrlConstants.baseUrl}$endpointPath',
+              options: Options(), data: isFormData ? FormData.fromMap(body ?? {}) : body);
           break;
         case RequestType.patch:
           break;
         case RequestType.delete:
-          response = response = await dio.delete('${UrlConstants.baseUrl}$endpointPath',
-              options: Options(headers: clientHeaders),
-              data: isFormData ? FormData.fromMap(body ?? {}) : body);
+          response = await dio.delete('${UrlConstants.baseUrl}$endpointPath',
+              options: Options(), data: isFormData ? FormData.fromMap(body ?? {}) : body);
           break;
       }
 
-      if (response!.statusCode == 200 && response.data["status"] == 200) {
+      if (response!.statusCode == 200 && response.data["status_code"] == 200) {
         var jsonbody = response.data;
 
-        return BaseAPIResponse(
-            data: jsonbody["data"], error: false, msg: jsonbody["msg"], status: jsonbody["status"]);
+        return BaseAPIResponse(data: jsonbody["data"], error: false, status: jsonbody["status_code"]);
       } else {
         var jsonbody = response.data;
-        return BaseAPIResponse(data: null, error: true, msg: jsonbody["msg"], status: jsonbody["status"]);
+
+        return BaseAPIResponse(data: null, error: true, status: jsonbody["status_code"]);
       }
+      // ignore: deprecated_member_use
     } on DioError catch (e) {
-      return BaseAPIResponse(data: null, error: true, msg: e.message, status: e.response!.statusCode);
+      return BaseAPIResponse(data: null, error: true, status: e.response!.statusCode);
     }
   }
 
@@ -71,33 +60,33 @@ class Network {
       required String endpoint,
       required Function(int, int)? onSendProgress}) async {
     FormData data = FormData.fromMap({
-      "file": await MultipartFile.fromFile(
+      "image_path": await MultipartFile.fromFile(
         filePath,
         filename: fileName,
       ),
     });
 
-    String? token = await SharedPreference.getAccessToken();
-
+    print('Awaaaaaaaaaaaaaaaaaa');
     Dio dio = Dio();
 
     try {
       var response = await dio.post(
         '${UrlConstants.baseUrl}$endpoint',
         data: data,
-        options: Options(
-          headers: {'authorization': 'Bearer $token'},
-        ),
+        // options: Options(),
         onSendProgress: onSendProgress,
       );
+
+      print(response);
 
       return BaseAPIResponse(
           data: {'url': response.data['data']['url'], 'name': response.data['data']['name']},
           error: false,
-          msg: response.statusMessage,
           status: response.statusCode);
+      // ignore: deprecated_member_use
     } on DioError catch (e) {
-      return BaseAPIResponse(data: null, error: true, msg: e.message, status: e.response?.statusCode);
+      print('................ $e');
+      return BaseAPIResponse(data: null, error: true, status: e.response?.statusCode);
     }
   }
 }

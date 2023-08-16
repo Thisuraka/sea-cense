@@ -66,6 +66,7 @@ class CucumberViewModel extends ChangeNotifier {
                 onTap: () {
                   switch (processorType) {
                     case ProcessorType.live:
+                      liveProcess(onSuccess: () {});
                       break;
                     case ProcessorType.processed:
                       // do something
@@ -88,9 +89,12 @@ class CucumberViewModel extends ChangeNotifier {
   }
 
   void liveProcess({required VoidCallback onSuccess}) async {
-    BaseAPIResponse response = await service.uploadImage(imageFile!);
+    Function(int, int)? onSendProgress;
+    BaseAPIResponse response = await service.uploadImage(imageFile!, onSendProgress);
     if (response.error) {
+      print(response.error);
     } else {
+      print(response.status);
       // print('Token from sign in ${response.data['token']}');
       // User.fromJson(response.data["kefuInfo"]);
       // await SharedPreference.setAccessToken(response.data['token']);
