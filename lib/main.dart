@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sea_cense/utils/navigation_service.dart';
 import 'package:sea_cense/views/onboarding/splash_view.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      navigatorKey: NavigationService.navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

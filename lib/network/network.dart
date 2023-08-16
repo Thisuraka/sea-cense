@@ -66,8 +66,8 @@ class Network {
       ),
     });
 
-    print('Awaaaaaaaaaaaaaaaaaa');
     Dio dio = Dio();
+    dio.options.connectTimeout = const Duration(seconds: 20);
 
     try {
       var response = await dio.post(
@@ -77,15 +77,9 @@ class Network {
         onSendProgress: onSendProgress,
       );
 
-      print(response);
-
-      return BaseAPIResponse(
-          data: {'url': response.data['data']['url'], 'name': response.data['data']['name']},
-          error: false,
-          status: response.statusCode);
+      return BaseAPIResponse(data: response.data, error: false, status: response.statusCode);
       // ignore: deprecated_member_use
     } on DioError catch (e) {
-      print('................ $e');
       return BaseAPIResponse(data: null, error: true, status: e.response?.statusCode);
     }
   }

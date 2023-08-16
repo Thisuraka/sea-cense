@@ -3,14 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sea_cense/models/base_api_response.dart';
+import 'package:sea_cense/models/cucumber_on_probability.dart';
 import 'package:sea_cense/service/cucumber_service.dart';
 import 'package:sea_cense/style.dart';
 import 'package:sea_cense/utils/camera_helper.dart';
 import 'package:sea_cense/utils/enums/processor_type.dart';
+import 'package:sea_cense/utils/identity_data.dart';
+import 'package:sea_cense/utils/navigation_service.dart';
+import 'package:sea_cense/views/home/live_cucumber_details.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
 
 class CucumberViewModel extends ChangeNotifier {
   final CucumberService service = CucumberService();
+  CucumberOnProbability? foundCucumberForLive;
   XFile? imageFile;
 
   bool isGen = false;
@@ -49,8 +54,8 @@ class CucumberViewModel extends ChangeNotifier {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.width / 2,
+                width: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.width / 2,
+                height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.width / 2,
                 margin: const EdgeInsets.all(5),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
@@ -62,11 +67,14 @@ class CucumberViewModel extends ChangeNotifier {
               ),
               CommonButtonWidget(
                 text: "Continue",
-                size: MediaQuery.of(context).size.width / 1.3,
+                size: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.width / 1.3,
                 onTap: () {
                   switch (processorType) {
                     case ProcessorType.live:
-                      liveProcess(onSuccess: () {});
+                      liveProcess(onSuccess: () {
+                        Navigator.of(NavigationService.navigatorKey.currentContext!)
+                            .push(MaterialPageRoute(builder: (context) => const LiveCucumberDetails()));
+                      });
                       break;
                     case ProcessorType.processed:
                       // do something
@@ -92,21 +100,11 @@ class CucumberViewModel extends ChangeNotifier {
     Function(int, int)? onSendProgress;
     BaseAPIResponse response = await service.uploadImage(imageFile!, onSendProgress);
     if (response.error) {
-      print(response.error);
     } else {
-      print(response.status);
-      // print('Token from sign in ${response.data['token']}');
-      // User.fromJson(response.data["kefuInfo"]);
-      // await SharedPreference.setAccessToken(response.data['token']);
+      foundCucumberForLive = seaCucumbers.firstWhere(
+        (cucumber) => cucumber.type == response.data['data']['predicted_class'],
+      );
 
-      // WebSocket().connect(response.data['token']);
-
-      // String message = jsonEncode({
-      //   "data": {"id": await SharedPreference.getUserId()},
-      //   "type": "to_chat"
-      // });
-      // WebSocket().send(message);
-      // loginBtnText = 'customerService.login';
       notifyListeners();
       onSuccess();
     }

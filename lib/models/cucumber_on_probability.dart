@@ -2,6 +2,7 @@ class CucumberOnProbability {
   String? type;
   String? description;
   String? scientificName;
+  String? conservationStatus;
   String? family;
   String? kingdom;
   String? phylum;
@@ -11,6 +12,7 @@ class CucumberOnProbability {
     this.type,
     this.description,
     this.scientificName,
+    this.conservationStatus,
     this.family,
     this.kingdom,
     this.phylum,
@@ -21,6 +23,7 @@ class CucumberOnProbability {
     type = json['type'];
     description = json['description'];
     scientificName = json['scientificName'];
+    conservationStatus = json['conservationStatus'];
     family = json['family'];
     kingdom = json['kingdom'];
     phylum = json['phylum'];
@@ -31,6 +34,7 @@ class CucumberOnProbability {
     data['type'] = type;
     data['description'] = description;
     data['scientificName'] = scientificName;
+    data['conservationStatus'] = conservationStatus;
     data['family'] = family;
     data['kingdom'] = kingdom;
     data['phylum'] = phylum;
