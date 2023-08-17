@@ -57,12 +57,7 @@ class SignUpView extends StatelessWidget {
                     text: "Sign up",
                     size: MediaQuery.of(context).size.width / 1.3,
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => CucumberViewModel(),
-                          child: const HomeView(),
-                        ),
-                      ));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
                     },
                   ),
                 ],

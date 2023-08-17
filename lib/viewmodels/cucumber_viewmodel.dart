@@ -54,8 +54,8 @@ class CucumberViewModel extends ChangeNotifier {
                 ),
               ),
               Container(
-                width: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.width / 2,
-                height: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.width / 2,
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.width / 2,
                 margin: const EdgeInsets.all(5),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
@@ -67,11 +67,12 @@ class CucumberViewModel extends ChangeNotifier {
               ),
               CommonButtonWidget(
                 text: "Continue",
-                size: MediaQuery.of(NavigationService.navigatorKey.currentContext!).size.width / 1.3,
+                size: MediaQuery.of(context).size.width / 1.3,
                 onTap: () {
                   switch (processorType) {
                     case ProcessorType.live:
                       liveProcess(onSuccess: () {
+                        Navigator.pop(context);
                         Navigator.of(NavigationService.navigatorKey.currentContext!)
                             .push(MaterialPageRoute(builder: (context) => const LiveCucumberDetails()));
                       });

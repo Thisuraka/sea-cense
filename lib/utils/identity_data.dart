@@ -4,7 +4,7 @@ List<CucumberOnProbability> seaCucumbers = [
   CucumberOnProbability(
       type: 'H.Scabra',
       description:
-          'Holothuria scabra, or sandfish, is a species of sea cucumber in the family Holothuriidae. It was placed in the subgenus Metriatyla by Rowe in 1969 and is the CucumberOnProbability(type species of the subgenus. Sandfish are harvested and processed into "beche-de-mer" and eaten in China and other Pacific coastal communities',
+          'Holothuria scabra, or sandfish, is a species of sea cucumber in the family Holothuriidae. It was placed in the subgenus Metriatyla by Rowe in 1969 and is the CucumberOnProbability (type species of the subgenus). Sandfish are harvested and processed into "beche-de-mer" and eaten in China and other Pacific coastal communities',
       scientificName: 'Holothuria scabra',
       conservationStatus: 'Endangered (Population decreasing) Encyclopedia of Life',
       family: 'Holothuriidae',

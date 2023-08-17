@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sea_cense/utils/navigation_service.dart';
+import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/views/onboarding/splash_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: ((context) => CucumberViewModel()),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
