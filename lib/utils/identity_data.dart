@@ -41,4 +41,13 @@ List<CucumberLive> seaCucumbers = [
       kingdom: 'Animalia',
       phylum: 'Echinodermata',
       diet: '--'),
+  CucumberLive(
+      type: 'Unknown',
+      description: '--',
+      scientificName: '--',
+      conservationStatus: '--',
+      family: '--',
+      kingdom: '--',
+      phylum: '--',
+      diet: '--'),
 ];

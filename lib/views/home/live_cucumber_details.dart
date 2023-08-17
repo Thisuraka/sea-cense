@@ -28,7 +28,7 @@ class LiveCucumberDetails extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height / 4.5,
+                    height: MediaQuery.of(context).size.height / 4,
                     margin: const EdgeInsets.only(top: 20),
                     decoration: BoxDecoration(
                       color: Colors.white,
