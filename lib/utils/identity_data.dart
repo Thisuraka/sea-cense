@@ -1,17 +1,17 @@
-import 'package:sea_cense/models/cucumber_on_probability.dart';
+import 'package:sea_cense/models/cucumber_live.dart';
 
-List<CucumberOnProbability> seaCucumbers = [
-  CucumberOnProbability(
+List<CucumberLive> seaCucumbers = [
+  CucumberLive(
       type: 'H.Scabra',
       description:
-          'Holothuria scabra, or sandfish, is a species of sea cucumber in the family Holothuriidae. It was placed in the subgenus Metriatyla by Rowe in 1969 and is the CucumberOnProbability (type species of the subgenus). Sandfish are harvested and processed into "beche-de-mer" and eaten in China and other Pacific coastal communities',
+          'Holothuria scabra, or sandfish, is a species of sea cucumber in the family Holothuriidae. It was placed in the subgenus Metriatyla by Rowe in 1969 and is the CucumberLive (type species of the subgenus). Sandfish are harvested and processed into "beche-de-mer" and eaten in China and other Pacific coastal communities',
       scientificName: 'Holothuria scabra',
       conservationStatus: 'Endangered (Population decreasing) Encyclopedia of Life',
       family: 'Holothuriidae',
       kingdom: 'Animalia',
       phylum: 'Echinoderma',
       diet: 'Diatoms and seaweeds'),
-  CucumberOnProbability(
+  CucumberLive(
       type: 'H.Spinifera',
       description:
           'Holothuria spinifera, the brown sandfish, is a species of sea cucumber in the family Holothuriidae. It is placed in the subgenus Theelothuria, making its full name Holothuria (Theelothuria) spinifera. In India it is known as cheena attai or raja attai. It lives in tropical regions of the west Indo-Pacific Ocean at depths ranging from 32 to 60 metres (105 to 197 ft). It is fished commercially to produce beche-de-mer.',
@@ -21,7 +21,7 @@ List<CucumberOnProbability> seaCucumbers = [
       kingdom: 'Animalia',
       phylum: 'Echinodermata',
       diet: '--'),
-  CucumberOnProbability(
+  CucumberLive(
       type: 'B.Vitenesis',
       description:
           'Bohadschia vitiensis is a species of sea cucumber in the family Holothuriidae. It is also known as the brown sandfish and brown sea cucumber. It is widespread in shallow waters of the Indo-Pacific. It appears to be able to hybridize with Bohadschia argus. Bohadschia vitiensis can grow to 50 cm in total length.',
@@ -31,7 +31,7 @@ List<CucumberOnProbability> seaCucumbers = [
       kingdom: 'Animalia',
       phylum: 'Echinodermata',
       diet: '--'),
-  CucumberOnProbability(
+  CucumberLive(
       type: 'S.Naso',
       description:
           'It is a classical Stichopus, stout and trapezoidal to rectangular in cross-section and with three rows of podia on the ventral face. Its color is uniform or mottled, from sandy to darj brown, with black lines and dots. Its dorsum wears huge and erected (though retractile) tubercle-like excrescences.Stichopus naso, or also known as tropical holothurian but generally, in modern terms, it is considered a sea cucumber. Stichopus naso was discovered in 1867 specifically in the Philippines. The most recent discovery of this species was in 2011 by the coast of Kagoshima, Kyushu, Japan',

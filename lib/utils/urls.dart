@@ -8,4 +8,8 @@ class UrlConstants {
   static String getLiveEndpoint() {
     return "/identification";
   }
+
+  static String getJuvenileEndpoint() {
+    return "/predict";
+  }
 }

@@ -5,11 +5,12 @@ import 'package:sea_cense/utils/enums/request_types.dart';
 import 'package:sea_cense/utils/urls.dart';
 
 class CucumberService {
-  Future<BaseAPIResponse> uploadImage(XFile imageFile, Function(int, int)? onSendProgress) async {
+  Future<BaseAPIResponse> uploadImage(
+      XFile imageFile, Function(int, int)? onSendProgress, String endpoint) async {
     BaseAPIResponse response = await Network.upload(
         filePath: imageFile.path,
         fileName: imageFile.name,
-        endpoint: UrlConstants.getLiveEndpoint(),
+        endpoint: endpoint,
         onSendProgress: onSendProgress);
     return response;
   }

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sea_cense/utils/utils.dart';
 import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/widgets/divider.dart';
 import 'package:sea_cense/widgets/live_detail_row.dart';

@@ -1,4 +1,4 @@
-class CucumberOnProbability {
+class CucumberLive {
   String? type;
   String? description;
   String? scientificName;
@@ -8,7 +8,7 @@ class CucumberOnProbability {
   String? phylum;
   String? diet;
 
-  CucumberOnProbability({
+  CucumberLive({
     this.type,
     this.description,
     this.scientificName,
@@ -19,7 +19,7 @@ class CucumberOnProbability {
     this.diet,
   });
 
-  CucumberOnProbability.fromJson(Map<String, dynamic> json) {
+  CucumberLive.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     description = json['description'];
     scientificName = json['scientificName'];

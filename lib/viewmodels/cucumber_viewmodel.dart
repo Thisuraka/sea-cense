@@ -1,21 +1,26 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sea_cense/models/base_api_response.dart';
-import 'package:sea_cense/models/cucumber_on_probability.dart';
+import 'package:sea_cense/models/cucumber_juvenile.dart';
+import 'package:sea_cense/models/cucumber_live.dart';
 import 'package:sea_cense/service/cucumber_service.dart';
 import 'package:sea_cense/style.dart';
 import 'package:sea_cense/utils/camera_helper.dart';
 import 'package:sea_cense/utils/enums/processor_type.dart';
 import 'package:sea_cense/utils/identity_data.dart';
 import 'package:sea_cense/utils/navigation_service.dart';
+import 'package:sea_cense/utils/urls.dart';
+import 'package:sea_cense/utils/utils.dart';
 import 'package:sea_cense/views/home/live_cucumber_details.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
 
 class CucumberViewModel extends ChangeNotifier {
   final CucumberService service = CucumberService();
-  CucumberOnProbability? foundCucumberForLive;
+  CucumberLive? foundCucumberForLive;
+  CucumberJuvenile? cucumberJuvenile;
   XFile? imageFile;
 
   bool isGen = false;
@@ -84,7 +89,11 @@ class CucumberViewModel extends ChangeNotifier {
                       // do something
                       break;
                     case ProcessorType.juvenile:
-                      // do something
+                      juvenileProcess(onSuccess: () {
+                        Navigator.pop(context);
+                        // Navigator.of(NavigationService.navigatorKey.currentContext!)
+                        //     .push(MaterialPageRoute(builder: (context) => const LiveCucumberDetails()));
+                      });
                       break;
                   }
                 },
@@ -99,15 +108,40 @@ class CucumberViewModel extends ChangeNotifier {
 
   void liveProcess({required VoidCallback onSuccess}) async {
     Function(int, int)? onSendProgress;
-    BaseAPIResponse response = await service.uploadImage(imageFile!, onSendProgress);
+    BaseAPIResponse response =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getLiveEndpoint());
     if (response.error) {
+      Utils.showSnackBar(
+          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
-      foundCucumberForLive = seaCucumbers.firstWhere(
-        (cucumber) => cucumber.type == response.data['data']['predicted_class'],
-      );
+      try {
+        foundCucumberForLive = seaCucumbers.firstWhere(
+          (cucumber) => cucumber.type == response.data['data']['predicted_class'],
+        );
+        notifyListeners();
+        onSuccess();
+      } catch (e) {
+        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+      }
+    }
+  }
 
-      notifyListeners();
-      onSuccess();
+  void juvenileProcess({required VoidCallback onSuccess}) async {
+    Function(int, int)? onSendProgress;
+    BaseAPIResponse response =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getJuvenileEndpoint());
+    if (response.error) {
+      Utils.showSnackBar(
+          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
+    } else {
+      // try {
+      //   Map<String, dynamic> decodedJson = json.decode(response.data);
+      //   cucumberJuvenile = CucumberJuvenile.fromJson(decodedJson);
+      //   notifyListeners();
+      //   onSuccess();
+      // } catch (e) {
+      //   Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+      // }
     }
   }
 }

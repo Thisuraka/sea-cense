@@ -7,7 +7,6 @@ import 'package:sea_cense/style.dart';
 import 'package:sea_cense/utils/camera_helper.dart';
 import 'package:sea_cense/utils/enums/processor_type.dart';
 import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
-import 'package:sea_cense/widgets/common_button_widget.dart';
 import 'package:sea_cense/widgets/home_tile_widget.dart';
 
 class HomeView extends StatefulWidget {
