@@ -22,7 +22,7 @@ List<CucumberOnProbability> seaCucumbers = [
       phylum: 'Echinodermata',
       diet: '--'),
   CucumberOnProbability(
-      type: 'H.Vitenesis',
+      type: 'B.Vitenesis',
       description:
           'Bohadschia vitiensis is a species of sea cucumber in the family Holothuriidae. It is also known as the brown sandfish and brown sea cucumber. It is widespread in shallow waters of the Indo-Pacific. It appears to be able to hybridize with Bohadschia argus. Bohadschia vitiensis can grow to 50 cm in total length.',
       scientificName: 'Bohadschia vitiensis',
@@ -32,7 +32,7 @@ List<CucumberOnProbability> seaCucumbers = [
       phylum: 'Echinodermata',
       diet: '--'),
   CucumberOnProbability(
-      type: 'H.Naso',
+      type: 'S.Naso',
       description:
           'It is a classical Stichopus, stout and trapezoidal to rectangular in cross-section and with three rows of podia on the ventral face. Its color is uniform or mottled, from sandy to darj brown, with black lines and dots. Its dorsum wears huge and erected (though retractile) tubercle-like excrescences.Stichopus naso, or also known as tropical holothurian but generally, in modern terms, it is considered a sea cucumber. Stichopus naso was discovered in 1867 specifically in the Philippines. The most recent discovery of this species was in 2011 by the coast of Kagoshima, Kyushu, Japan',
       scientificName: 'Stichopus naso',
