@@ -16,21 +16,21 @@ class CucumberJuvenile {
   });
 
   CucumberJuvenile.fromJson(Map<String, dynamic> json) {
-    type = json['Class'];
-    weight = json['Final Weight\n(g)'];
-    initSize = json['Initial Size \nGroup'];
-    growthRate = json['Specific Growth Rate (% per day)'];
-    survivalRate = json['Survival \nRate (%)'];
-    totalBiomass = json['Total  Biomass (g)'];
+    type = json['class'];
+    weight = json['finalWeight'];
+    initSize = json['initSizeGroup'];
+    growthRate = json['growthRatePerDay'];
+    survivalRate = json['survivalRate'];
+    totalBiomass = json['totalBioMass'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['type'] = type;
-    data['weight'] = weight;
-    data['initSize'] = initSize;
-    data['growthRate'] = growthRate;
+    data['class'] = type;
+    data['finalWeight'] = weight;
+    data['initSizeGroup'] = initSize;
+    data['growthRatePerDay'] = growthRate;
     data['survivalRate'] = survivalRate;
-    data['totalBiomass'] = totalBiomass;
+    data['totalBioMass'] = totalBiomass;
 
     return data;
   }
