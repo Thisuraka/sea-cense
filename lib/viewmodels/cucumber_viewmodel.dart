@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sea_cense/models/base_api_response.dart';
 import 'package:sea_cense/models/cucumber_juvenile.dart';
 import 'package:sea_cense/models/cucumber_live.dart';
+import 'package:sea_cense/models/cucumber_processed.dart';
 import 'package:sea_cense/service/cucumber_service.dart';
 import 'package:sea_cense/style.dart';
 import 'package:sea_cense/utils/camera_helper.dart';
@@ -21,6 +22,7 @@ class CucumberViewModel extends ChangeNotifier {
   final CucumberService service = CucumberService();
   CucumberLive? foundCucumberForLive;
   CucumberJuvenile? cucumberJuvenile;
+  CucumberProcessed? cucumberProcessed;
   XFile? imageFile;
 
   bool isGen = false;
@@ -83,7 +85,7 @@ class CucumberViewModel extends ChangeNotifier {
                       });
                       break;
                     case ProcessorType.processed:
-                      // do something
+                      processedProcess();
                       break;
                     case ProcessorType.price:
                       // do something
@@ -133,14 +135,13 @@ class CucumberViewModel extends ChangeNotifier {
       try {
         if (response.data['data'] == "Adult") {
           Navigator.pop(NavigationService.navigatorKey.currentContext!);
-          juvenileAdultPopup();
+          dataPopup('Speciman was identified as an Adult');
         } else {
           cucumberJuvenile = CucumberJuvenile.fromJson(response.data['data']);
           Navigator.pop(NavigationService.navigatorKey.currentContext!);
           Navigator.of(NavigationService.navigatorKey.currentContext!)
               .push(MaterialPageRoute(builder: (context) => const JuvenileCucumberDetails()));
         }
-
         notifyListeners();
       } catch (e) {
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
@@ -148,23 +149,44 @@ class CucumberViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> juvenileAdultPopup() {
+  void processedProcess() async {
+    Function(int, int)? onSendProgress;
+    BaseAPIResponse response =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getProcessedEndpoint());
+    if (response.error) {
+      Utils.showSnackBar(
+          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
+    } else {
+      try {
+        cucumberProcessed = CucumberProcessed.fromJson(response.data['data']);
+
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+        // dataPopup(
+        //     '${cucumberProcessed!.predictedClass} with a probabilty of ${cucumberProcessed!.predictedProbabilities!}');
+
+        dataPopup('Speciman is of ${cucumberProcessed!.predictedClass}');
+      } catch (e) {
+        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+      }
+    }
+  }
+
+  Future<void> dataPopup(String text) {
     return showDialog<void>(
       context: NavigationService.navigatorKey.currentContext!,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
           elevation: 0.0,
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          child: Wrap(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.white,
-                ),
-                child: Column(children: [
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height / 6,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -177,17 +199,16 @@ class CucumberViewModel extends ChangeNotifier {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 30),
-                    child: const Text(
-                      'Speciman was identified as an Adult',
-                      style: TextStyle(
+                    child: Text(
+                      text,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ]),
-              ),
-            ],
           ),
         );
       },

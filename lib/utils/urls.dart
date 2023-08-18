@@ -12,4 +12,8 @@ class UrlConstants {
   static String getJuvenileEndpoint() {
     return "/predict";
   }
+
+  static String getProcessedEndpoint() {
+    return "/quality";
+  }
 }
