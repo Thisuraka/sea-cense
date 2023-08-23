@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sea_cense/models/cucumber_price.dart';
 import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/widgets/divider.dart';
 import 'package:sea_cense/widgets/live_detail_row.dart';
@@ -29,9 +30,6 @@ class PriceDetails extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width / 4,
-                  ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
                     margin: const EdgeInsets.only(top: 20),
@@ -65,25 +63,20 @@ class PriceDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Price',
-                          style: TextStyle(
-                              color: Colors.white54,
-                              fontSize: 14,
-                              letterSpacing: 3.0,
-                              fontStyle: FontStyle.italic),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          '${getRandomDivisibleByFive(model.cucumberPrice!.price!)} LKR',
-                          style: const TextStyle(
-                              color: Color(0xD20099FF),
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 3.0),
-                        ),
+                        approxValRow(Icons.attach_money, 'Price',
+                            '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR', context, false),
+                        approxValRow(
+                            Icons.crop_16_9_rounded,
+                            'Length',
+                            '${generateRandomNumber(model.cucumberPrice!.category!, model.cucumberPrice!.length!)} cm',
+                            context,
+                            false),
+                        approxValRow(
+                            Icons.crop_16_9_rounded,
+                            'Width',
+                            '${generateRandomNumber(model.cucumberPrice!.category!, model.cucumberPrice!.width!)} g',
+                            context,
+                            true),
                         const SizedBox(
                           height: 5,
                         ),
@@ -93,11 +86,11 @@ class PriceDetails extends StatelessWidget {
                           desc: model.cucumberPrice!.price!,
                         ),
                         LiveDetailRow(
-                          title: 'Length (cm)',
+                          title: 'Length range (cm)',
                           desc: model.cucumberPrice!.length!,
                         ),
                         LiveDetailRow(
-                          title: 'Width (g)',
+                          title: 'Width range (g)',
                           desc: model.cucumberPrice!.width!,
                         ),
                         const SizedBox(
@@ -115,8 +108,62 @@ class PriceDetails extends StatelessWidget {
     );
   }
 
-  int getRandomDivisibleByFive(String price) {
-    List<String> priceParts = price.split('-');
+  approxValRow(IconData icon, String title, String value, BuildContext context, bool transform) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          transform
+              ? Transform.rotate(
+                  angle: 90 * math.pi / 180,
+                  child: Icon(
+                    icon,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                )
+              : Icon(
+                  icon,
+                  size: 20,
+                  color: Colors.white,
+                ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 4,
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white54,
+                fontSize: 20,
+                fontWeight: FontWeight.w300,
+                letterSpacing: 3.0,
+              ),
+            ),
+          ),
+          Container(
+            height: 20,
+            width: 0.5,
+            color: Colors.white,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 4,
+            child: Text(
+              value,
+              style: const TextStyle(
+                  color: Color(0xD20099FF), fontSize: 20, fontWeight: FontWeight.w400, letterSpacing: 3.0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  dynamic getRandomDivisibleByFive(CucumberPrice model) {
+    if (model.category == 'Unkown') {
+      return '--';
+    }
+    List<String> priceParts = model.price!.split('-');
     final random = Random();
     int result, min, max;
     min = int.parse(priceParts[0]);
@@ -129,5 +176,16 @@ class PriceDetails extends StatelessWidget {
     } while (result < min);
 
     return result;
+  }
+
+  dynamic generateRandomNumber(String category, String value) {
+    if (category == 'Unkown') {
+      return '--';
+    }
+    List<String> parts = value.split('-');
+    final random = Random();
+    int min = int.parse(parts[0]);
+    int max = int.parse(parts[1]);
+    return min + random.nextInt(max - min + 1);
   }
 }
