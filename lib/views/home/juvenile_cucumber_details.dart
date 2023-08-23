@@ -27,8 +27,22 @@ class JuvenileCucumberDetails extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 20),
+                      child: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   const Text(
                     "Juvenile Size Prediction",

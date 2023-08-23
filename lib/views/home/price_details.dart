@@ -30,6 +30,20 @@ class PriceDetails extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 20),
+                      child: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
                     margin: const EdgeInsets.only(top: 20),
