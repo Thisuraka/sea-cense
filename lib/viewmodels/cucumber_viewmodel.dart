@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sea_cense/models/base_api_response.dart';
 import 'package:sea_cense/models/cucumber_juvenile.dart';
 import 'package:sea_cense/models/cucumber_live.dart';
+import 'package:sea_cense/models/cucumber_price.dart';
 import 'package:sea_cense/models/cucumber_processed.dart';
 import 'package:sea_cense/service/cucumber_service.dart';
 import 'package:sea_cense/style.dart';
@@ -16,6 +17,7 @@ import 'package:sea_cense/utils/urls.dart';
 import 'package:sea_cense/utils/utils.dart';
 import 'package:sea_cense/views/home/juvenile_cucumber_details.dart';
 import 'package:sea_cense/views/home/live_cucumber_details.dart';
+import 'package:sea_cense/views/home/price_details.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
 
 class CucumberViewModel extends ChangeNotifier {
@@ -23,6 +25,7 @@ class CucumberViewModel extends ChangeNotifier {
   CucumberLive? foundCucumberForLive;
   CucumberJuvenile? cucumberJuvenile;
   CucumberProcessed? cucumberProcessed;
+  CucumberPrice? cucumberPrice;
   XFile? imageFile;
 
   bool isGen = false;
@@ -88,7 +91,7 @@ class CucumberViewModel extends ChangeNotifier {
                       processedProcess();
                       break;
                     case ProcessorType.price:
-                      // do something
+                      priceProcess();
                       break;
                     case ProcessorType.juvenile:
                       juvenileProcess();
@@ -124,6 +127,48 @@ class CucumberViewModel extends ChangeNotifier {
     }
   }
 
+  void processedProcess() async {
+    Function(int, int)? onSendProgress;
+    BaseAPIResponse response =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getProcessedEndpoint());
+    if (response.error) {
+      Utils.showSnackBar(
+          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
+    } else {
+      try {
+        cucumberProcessed = CucumberProcessed.fromJson(response.data['data']);
+
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+
+        dataPopup(
+            'Speciman is a ${cucumberProcessed!.predictedType}:\n ${cucumberProcessed!.predictedClass}');
+      } catch (e) {
+        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+      }
+    }
+  }
+
+  void priceProcess() async {
+    Function(int, int)? onSendProgress;
+    BaseAPIResponse response =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getPriceEndpoint());
+    if (response.error) {
+      Utils.showSnackBar(
+          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
+    } else {
+      try {
+        cucumberPrice = priceCatergories[response.data['data']['predicted_class']];
+
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+
+        Navigator.of(NavigationService.navigatorKey.currentContext!)
+            .push(MaterialPageRoute(builder: (context) => const PriceDetails()));
+      } catch (e) {
+        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+      }
+    }
+  }
+
   void juvenileProcess() async {
     Function(int, int)? onSendProgress;
     BaseAPIResponse response =
@@ -143,28 +188,6 @@ class CucumberViewModel extends ChangeNotifier {
               .push(MaterialPageRoute(builder: (context) => const JuvenileCucumberDetails()));
         }
         notifyListeners();
-      } catch (e) {
-        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
-      }
-    }
-  }
-
-  void processedProcess() async {
-    Function(int, int)? onSendProgress;
-    BaseAPIResponse response =
-        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getProcessedEndpoint());
-    if (response.error) {
-      Utils.showSnackBar(
-          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
-    } else {
-      try {
-        cucumberProcessed = CucumberProcessed.fromJson(response.data['data']);
-
-        Navigator.pop(NavigationService.navigatorKey.currentContext!);
-        // dataPopup(
-        //     '${cucumberProcessed!.predictedClass} with a probabilty of ${cucumberProcessed!.predictedProbabilities!}');
-
-        dataPopup('Speciman is of ${cucumberProcessed!.predictedClass}');
       } catch (e) {
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
       }
@@ -198,13 +221,14 @@ class CucumberViewModel extends ChangeNotifier {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 30),
+                    margin: const EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.all(10),
                     child: Text(
                       text,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                   ),

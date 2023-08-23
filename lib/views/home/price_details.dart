@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,8 +7,8 @@ import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/widgets/divider.dart';
 import 'package:sea_cense/widgets/live_detail_row.dart';
 
-class JuvenileCucumberDetails extends StatelessWidget {
-  const JuvenileCucumberDetails({super.key});
+class PriceDetails extends StatelessWidget {
+  const PriceDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,26 +19,18 @@ class JuvenileCucumberDetails extends StatelessWidget {
         padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
         decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
-            Color(0xFF1869C0),
-            Color(0xFF443C6C),
+            Color.fromARGB(255, 24, 116, 192),
+            Color.fromARGB(255, 60, 77, 108),
           ], begin: Alignment.topLeft, end: Alignment.centerRight),
         ),
         child: Consumer<CucumberViewModel>(
           builder: (context, model, child) {
             return SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Juvenile Size Prediction",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color(0xD2BBE4FF),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 3.0),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 4,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
@@ -64,7 +57,7 @@ class JuvenileCucumberDetails extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(top: 20),
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     decoration: const BoxDecoration(
                       color: Color(0x29000000),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -72,8 +65,19 @@ class JuvenileCucumberDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const Text(
+                          'Price',
+                          style: TextStyle(
+                              color: Colors.white54,
+                              fontSize: 14,
+                              letterSpacing: 3.0,
+                              fontStyle: FontStyle.italic),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         Text(
-                          model.cucumberJuvenile!.initSize!,
+                          '${getRandomDivisibleByFive(model.cucumberPrice!.price!)} LKR',
                           style: const TextStyle(
                               color: Color(0xD20099FF),
                               fontSize: 30,
@@ -81,35 +85,23 @@ class JuvenileCucumberDetails extends StatelessWidget {
                               letterSpacing: 3.0),
                         ),
                         const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'Holothuria Scabra',
-                          style: TextStyle(
-                              color: Color(0xD2FFFFFF),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w100,
-                              letterSpacing: 3.0),
-                        ),
-                        const SizedBox(
                           height: 5,
                         ),
                         const CustomDivider(),
                         LiveDetailRow(
-                          title: 'Final Weight (g)',
-                          desc: model.cucumberJuvenile!.weight!,
+                          title: 'Price range (LKR)',
+                          desc: model.cucumberPrice!.price!,
                         ),
                         LiveDetailRow(
-                          title: 'Growth rate per day (%)',
-                          desc: model.cucumberJuvenile!.growthRate!,
+                          title: 'Length (cm)',
+                          desc: model.cucumberPrice!.length!,
                         ),
                         LiveDetailRow(
-                          title: 'Survival rate (%)',
-                          desc: model.cucumberJuvenile!.survivalRate!,
+                          title: 'Width (g)',
+                          desc: model.cucumberPrice!.width!,
                         ),
-                        LiveDetailRow(
-                          title: 'Total Biomass (g)',
-                          desc: model.cucumberJuvenile!.totalBiomass!,
+                        const SizedBox(
+                          height: 20,
                         ),
                       ],
                     ),
@@ -121,5 +113,21 @@ class JuvenileCucumberDetails extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  int getRandomDivisibleByFive(String price) {
+    List<String> priceParts = price.split('-');
+    final random = Random();
+    int result, min, max;
+    min = int.parse(priceParts[0]);
+    max = int.parse(priceParts[1]);
+
+    do {
+      result = min + random.nextInt(max - min + 1);
+
+      result -= result % 5;
+    } while (result < min);
+
+    return result;
   }
 }

@@ -6,14 +6,18 @@ class UrlConstants {
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   static String getLiveEndpoint() {
-    return "/identification";
-  }
-
-  static String getJuvenileEndpoint() {
-    return "/predict";
+    return "/type-identification";
   }
 
   static String getProcessedEndpoint() {
     return "/quality";
+  }
+
+  static String getPriceEndpoint() {
+    return "/price-prediction";
+  }
+
+  static String getJuvenileEndpoint() {
+    return "/age-prediction";
   }
 }

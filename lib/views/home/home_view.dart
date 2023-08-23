@@ -71,7 +71,9 @@ class _HomeViewState extends State<HomeView> {
                   HomeTileWidget(
                     icon: Icons.price_check,
                     title: 'Price',
-                    onTap: () {},
+                    onTap: () {
+                      model.addImage(context, ProcessorType.price);
+                    },
                   ),
                   HomeTileWidget(
                     icon: Icons.new_label,
