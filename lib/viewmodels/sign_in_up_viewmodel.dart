@@ -30,7 +30,8 @@ class SignInUpViewModel extends ChangeNotifier {
       if (foundUser.username == "" || foundUser.username == null) {
         Utils.showSnackBar('User does not exist', NavigationService.navigatorKey.currentContext!);
       } else {
-        if (foundUser.username == user.username && foundUser.password == user.password) {
+        if (foundUser.username!.toLowerCase() == user.username!.toLowerCase() &&
+            foundUser.password == user.password) {
           onSuccess();
         }
       }
