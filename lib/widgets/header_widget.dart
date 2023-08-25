@@ -15,7 +15,7 @@ class HeaderWidget extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.only(left: 10, top: 40),
-            width: MediaQuery.of(context).size.width / 2.1,
+            width: MediaQuery.of(context).size.width / 1.9,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/onBoarding_header_bg.png"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sea_cense/utils/navigation_service.dart';
 import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const SplashView(),
+      builder: EasyLoading.init(),
     );
   }
 }

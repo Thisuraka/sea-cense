@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sea_cense/models/base_api_response.dart';
 import 'package:sea_cense/models/cucumber_juvenile.dart';
@@ -23,11 +24,10 @@ import 'package:sea_cense/widgets/common_button_widget.dart';
 class CucumberViewModel extends ChangeNotifier {
   final CucumberService service = CucumberService();
   CucumberLive? foundCucumberForLive;
-  CucumberJuvenile? cucumberJuvenile;
   CucumberProcessed? cucumberProcessed;
   CucumberPrice? cucumberPrice;
+  CucumberJuvenile? cucumberJuvenile;
   XFile? imageFile;
-
   bool isGen = false;
 
   void setGen() {
@@ -79,6 +79,14 @@ class CucumberViewModel extends ChangeNotifier {
                 text: "Continue",
                 size: MediaQuery.of(context).size.width / 1.3,
                 onTap: () {
+                  EasyLoading.instance
+                    ..displayDuration = const Duration(milliseconds: 2000)
+                    ..indicatorColor = Colors.white
+                    ..maskColor = const Color(0xDA1B0130)
+                    ..textColor = defaultColor
+                    ..dismissOnTap = false;
+                  EasyLoading.show(status: 'loading...');
+
                   switch (processorType) {
                     case ProcessorType.live:
                       liveProcess(onSuccess: () {
@@ -112,6 +120,7 @@ class CucumberViewModel extends ChangeNotifier {
     BaseAPIResponse response =
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getLiveEndpoint());
     if (response.error) {
+      EasyLoading.dismiss();
       Utils.showSnackBar(
           'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
@@ -119,9 +128,10 @@ class CucumberViewModel extends ChangeNotifier {
         foundCucumberForLive = seaCucumbers.firstWhere(
           (cucumber) => cucumber.type == response.data['data']['predicted_class'],
         );
-        notifyListeners();
+        EasyLoading.dismiss();
         onSuccess();
       } catch (e) {
+        EasyLoading.dismiss();
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
       }
     }
@@ -132,17 +142,20 @@ class CucumberViewModel extends ChangeNotifier {
     BaseAPIResponse response =
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getProcessedEndpoint());
     if (response.error) {
+      EasyLoading.dismiss();
       Utils.showSnackBar(
           'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
       try {
         cucumberProcessed = CucumberProcessed.fromJson(response.data['data']);
 
+        EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
         dataPopup(
             'Speciman is a ${cucumberProcessed!.predictedType}:\n ${cucumberProcessed!.predictedClass}');
       } catch (e) {
+        EasyLoading.dismiss();
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
       }
     }
@@ -153,17 +166,20 @@ class CucumberViewModel extends ChangeNotifier {
     BaseAPIResponse response =
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getPriceEndpoint());
     if (response.error) {
+      EasyLoading.dismiss();
       Utils.showSnackBar(
           'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
       try {
         cucumberPrice = priceCatergories[response.data['data']['predicted_class']];
 
+        EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
         Navigator.of(NavigationService.navigatorKey.currentContext!)
             .push(MaterialPageRoute(builder: (context) => const PriceDetails()));
       } catch (e) {
+        EasyLoading.dismiss();
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
       }
     }
@@ -174,21 +190,26 @@ class CucumberViewModel extends ChangeNotifier {
     BaseAPIResponse response =
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getJuvenileEndpoint());
     if (response.error) {
+      EasyLoading.dismiss();
       Utils.showSnackBar(
           'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
       try {
         if (response.data['data'] == "Adult") {
+          EasyLoading.dismiss();
           Navigator.pop(NavigationService.navigatorKey.currentContext!);
           dataPopup('Speciman was identified as an Adult');
         } else {
           cucumberJuvenile = CucumberJuvenile.fromJson(response.data['data']);
+
+          EasyLoading.dismiss();
           Navigator.pop(NavigationService.navigatorKey.currentContext!);
           Navigator.of(NavigationService.navigatorKey.currentContext!)
               .push(MaterialPageRoute(builder: (context) => const JuvenileCucumberDetails()));
         }
         notifyListeners();
       } catch (e) {
+        EasyLoading.dismiss();
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
       }
     }

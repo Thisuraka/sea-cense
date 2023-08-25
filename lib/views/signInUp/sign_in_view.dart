@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sea_cense/style.dart';
 import 'package:provider/provider.dart';
-import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/viewmodels/sign_in_up_viewmodel.dart';
 import 'package:sea_cense/views/home/home_view.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
@@ -48,7 +47,7 @@ class SignInView extends StatelessWidget {
                   ),
                   CommonButtonWidget(
                     text: "Sign in",
-                    size: MediaQuery.of(context).size.width / 1.3,
+                    size: MediaQuery.of(context).size.width / 1.25,
                     onTap: () {
                       model.signin(onSuccess: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));

@@ -37,13 +37,13 @@ class RoundedTextboxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 60,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 45, vertical: verticalMargin),
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0.0),
       decoration: BoxDecoration(
         color: Colors.black12,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(60),
       ),
       child: TextFormField(
         style: const TextStyle(fontSize: 16.0),

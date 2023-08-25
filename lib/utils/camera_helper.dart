@@ -1,6 +1,5 @@
 import 'package:image_picker/image_picker.dart';
 
-// ···
 class CameraHelper {
   static Future<XFile> selectImages() async {
     final XFile? imageFile;

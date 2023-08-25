@@ -37,7 +37,7 @@ class PriceDetails extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 40),
                       child: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.white,
@@ -77,18 +77,6 @@ class PriceDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // SizedBox(
-                        //   width: MediaQuery.of(context).size.width,
-                        //   child: Text(
-                        //     '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR',
-                        //     textAlign: TextAlign.center,
-                        //     style: const TextStyle(
-                        //         color: Color.fromARGB(210, 31, 240, 212),
-                        //         fontSize: 34,
-                        //         fontWeight: FontWeight.w500,
-                        //         letterSpacing: 3.0),
-                        //   ),
-                        // ),
                         approxValRow(Icons.crop_16_9_rounded, 'Price',
                             '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR', context, false,
                             special: true),

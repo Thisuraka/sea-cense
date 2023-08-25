@@ -18,7 +18,7 @@ class OnboardingView extends StatelessWidget {
         child: Column(
           children: [
             const HeaderWidget(
-              text: "Sea cense",
+              text: "Welcome to \nSea cense",
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height / 5,

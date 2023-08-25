@@ -12,7 +12,7 @@ class CommonButtonWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: size,
-        height: 50,
+        height: 60,
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.only(left: 20),
         decoration: const BoxDecoration(

@@ -34,7 +34,7 @@ class JuvenileCucumberDetails extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 40),
                       child: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.white,

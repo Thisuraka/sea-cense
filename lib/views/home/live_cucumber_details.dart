@@ -34,7 +34,7 @@ class LiveCucumberDetails extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 40),
                       child: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.white,
@@ -69,8 +69,7 @@ class LiveCucumberDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                       color: Color(0x29000000),
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

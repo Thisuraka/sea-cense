@@ -17,8 +17,8 @@ class InfoView extends StatelessWidget {
             const Text(
               'About us',
               style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w400,
+                fontSize: 42,
+                fontWeight: FontWeight.w200,
               ),
             ),
             Image.asset(
@@ -30,6 +30,7 @@ class InfoView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 80, right: 30),
               child: const Text(
                 'Sea Cense is a mobile application solution aimed at improving the identification and processing of live and dried sea cucumbers while offering an effective prediction system to determine the survival and growth rate of juvenile sea cucumbers',
+                textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 18,
                   color: Color(0xFF2743FD),
