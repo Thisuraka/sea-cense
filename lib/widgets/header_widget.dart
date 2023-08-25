@@ -9,13 +9,13 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 3.3,
+      height: MediaQuery.of(context).size.height / 3,
       alignment: Alignment.centerLeft,
       child: Stack(
         children: [
           Container(
             padding: const EdgeInsets.only(left: 10, top: 40),
-            width: MediaQuery.of(context).size.width / 1.9,
+            width: MediaQuery.of(context).size.width / 1.7,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/onBoarding_header_bg.png"),
@@ -48,7 +48,7 @@ class HeaderWidget extends StatelessWidget {
                     ),
                     Image.asset(
                       'assets/images/logo_without_text.png',
-                      height: 100,
+                      height: 90,
                     ),
                   ],
                 ),

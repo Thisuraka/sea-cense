@@ -46,7 +46,7 @@ class CucumberViewModel extends ChangeNotifier {
           elevation: 0.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
-            height: MediaQuery.of(context).size.height / 2.5,
+            height: MediaQuery.of(context).size.height / 2.3,
             padding: const EdgeInsets.all(10.0),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -71,9 +71,6 @@ class CucumberViewModel extends ChangeNotifier {
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.file(File(imageFile!.path)),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
               ),
               CommonButtonWidget(
                 text: "Continue",
