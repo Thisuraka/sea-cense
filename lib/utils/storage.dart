@@ -1,22 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreference {
-  static setAccessToken(String token) async {
+  static setUser(String user) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    sharedPrefs.setString("access_token", token);
+    sharedPrefs.setString("user_info", user);
   }
 
-  static Future<String?> getAccessToken() async {
-    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getString("access_token");
-  }
-
-  static setUserInfo(String userInfo) async {
-    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    sharedPrefs.setString("user_info", userInfo);
-  }
-
-  static Future<String?> getUserInfo() async {
+  static Future<String?> getUser() async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getString("user_info");
   }

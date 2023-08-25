@@ -1,47 +1,80 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:sea_cense/service/login_service.dart';
+import 'package:sea_cense/models/user.dart';
+import 'package:sea_cense/utils/navigation_service.dart';
+import 'package:sea_cense/utils/storage.dart';
+import 'package:sea_cense/utils/utils.dart';
 
 class SignInUpViewModel extends ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordCntroller = TextEditingController();
   final TextEditingController confPasswordCntroller = TextEditingController();
 
-  final LoginService service = LoginService();
-
-  void init() {}
+  List<User> userList = [];
 
   void signin({required VoidCallback onSuccess}) async {
-    // loginBtnText = 'customerService.loading';
-    // notifyListeners();
-    // BaseAPIResponse response =
-    //     await service.signin(username.text, password.text);
-    // if (response.error) {
-    //   loginBtnText = 'customerService.login';
-    //   notifyListeners();
-    // } else {
-    //   // print('Token from sign in ${response.data['token']}');
-    //   User.fromJson(response.data["kefuInfo"]);
-    //   await SharedPreference.setAccessToken(response.data['token']);
+    String? users = await SharedPreference.getUser();
+    userList = List<User>.from(json.decode(users!).map((userJson) => User.fromJson(userJson)));
 
-    //   WebSocket().connect(response.data['token']);
+    User user = User();
+    user.username = usernameController.text;
+    user.password = passwordCntroller.text;
+    if (userList.isNotEmpty) {
+      User? foundUser = userList.firstWhere(
+        (value) => value.username!.toLowerCase() == user.username!.toLowerCase(),
+        orElse: () => User(),
+      );
 
-    //   String message = jsonEncode({
-    //     "data": {"id": await SharedPreference.getUserId()},
-    //     "type": "to_chat"
-    //   });
-    //   WebSocket().send(message);
-    //   loginBtnText = 'customerService.login';
-    //   notifyListeners();
-    //   onSuccess();
-    // }
+      if (foundUser.username == "" || foundUser.username == null) {
+        Utils.showSnackBar('User does not exist', NavigationService.navigatorKey.currentContext!);
+      } else {
+        if (foundUser.username == user.username && foundUser.password == user.password) {
+          onSuccess();
+        }
+      }
+    } else {
+      Utils.showSnackBar('User does not exist', NavigationService.navigatorKey.currentContext!);
+    }
   }
 
-  void signup({required VoidCallback onSuccess}) async {}
+  void signup({required VoidCallback onSuccess}) async {
+    String? users = await SharedPreference.getUser();
+    userList = List<User>.from(json.decode(users!).map((userJson) => User.fromJson(userJson)));
+
+    if (passwordCntroller.text == confPasswordCntroller.text) {
+      User user = User();
+      user.username = usernameController.text;
+      user.password = passwordCntroller.text;
+
+      if (userList.isNotEmpty) {
+        User? foundUser = userList.firstWhere(
+          (value) => value.username!.toLowerCase() == user.username!.toLowerCase(),
+          orElse: () => User(),
+        );
+
+        if (foundUser.username == "" || foundUser.username == null) {
+          userList.add(user);
+          SharedPreference.setUser(jsonEncode(userList));
+          onSuccess();
+        } else {
+          Utils.showSnackBar('User already exists', NavigationService.navigatorKey.currentContext!);
+        }
+      } else {
+        userList.add(user);
+        SharedPreference.setUser(jsonEncode(userList));
+        onSuccess();
+      }
+    } else {
+      Utils.showSnackBar('Passwords do not match', NavigationService.navigatorKey.currentContext!);
+    }
+  }
 
   disposeControllers() {
-    emailController.dispose();
+    usernameController.dispose();
     passwordCntroller.dispose();
     confPasswordCntroller.dispose();
+    userList.clear();
   }
 }

@@ -77,8 +77,21 @@ class PriceDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        approxValRow(Icons.attach_money, 'Price',
-                            '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR', context, false),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   child: Text(
+                        //     '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR',
+                        //     textAlign: TextAlign.center,
+                        //     style: const TextStyle(
+                        //         color: Color.fromARGB(210, 31, 240, 212),
+                        //         fontSize: 34,
+                        //         fontWeight: FontWeight.w500,
+                        //         letterSpacing: 3.0),
+                        //   ),
+                        // ),
+                        approxValRow(Icons.crop_16_9_rounded, 'Price',
+                            '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR', context, false,
+                            special: true),
                         approxValRow(
                             Icons.crop_16_9_rounded,
                             'Length',
@@ -122,7 +135,8 @@ class PriceDetails extends StatelessWidget {
     );
   }
 
-  approxValRow(IconData icon, String title, String value, BuildContext context, bool transform) {
+  approxValRow(IconData icon, String title, String value, BuildContext context, bool transform,
+      {bool special = false}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -164,8 +178,11 @@ class PriceDetails extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 4,
             child: Text(
               value,
-              style: const TextStyle(
-                  color: Color(0xD20099FF), fontSize: 20, fontWeight: FontWeight.w400, letterSpacing: 3.0),
+              style: TextStyle(
+                  color: special ? const Color(0xD218C5A8) : const Color(0xD20099FF),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 3.0),
             ),
           ),
         ],

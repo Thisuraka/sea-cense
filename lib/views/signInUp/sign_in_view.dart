@@ -35,8 +35,8 @@ class SignInView extends StatelessWidget {
                     ),
                   ),
                   RoundedTextboxWidget(
-                    controller: model.emailController,
-                    labelText: 'Email Address',
+                    controller: model.usernameController,
+                    labelText: 'Username',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   RoundedTextboxWidget(
@@ -50,7 +50,9 @@ class SignInView extends StatelessWidget {
                     text: "Sign in",
                     size: MediaQuery.of(context).size.width / 1.3,
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
+                      model.signin(onSuccess: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
+                      });
                     },
                   ),
                 ],

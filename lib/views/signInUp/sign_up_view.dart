@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sea_cense/style.dart';
-import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/viewmodels/sign_in_up_viewmodel.dart';
 import 'package:sea_cense/views/home/home_view.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
@@ -13,9 +12,6 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordCntroller = TextEditingController();
-    TextEditingController confPasswordCntroller = TextEditingController();
     return Scaffold(
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -38,16 +34,15 @@ class SignUpView extends StatelessWidget {
                     ),
                   ),
                   RoundedTextboxWidget(
-                    controller: emailController,
-                    labelText: 'Email Address',
-                    keyboardType: TextInputType.emailAddress,
+                    controller: model.usernameController,
+                    labelText: 'Username',
                   ),
                   RoundedTextboxWidget(
-                    controller: passwordCntroller,
+                    controller: model.passwordCntroller,
                     labelText: 'Password',
                   ),
                   RoundedTextboxWidget(
-                    controller: confPasswordCntroller,
+                    controller: model.confPasswordCntroller,
                     labelText: 'Confirm Password',
                   ),
                   const SizedBox(
@@ -57,7 +52,9 @@ class SignUpView extends StatelessWidget {
                     text: "Sign up",
                     size: MediaQuery.of(context).size.width / 1.3,
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
+                      model.signup(onSuccess: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeView()));
+                      });
                     },
                   ),
                 ],
