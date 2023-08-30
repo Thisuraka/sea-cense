@@ -8,4 +8,12 @@ class CameraHelper {
 
     return imageFile!;
   }
+
+  static Future<XFile> takeImages() async {
+    final XFile? imageFile;
+    final ImagePicker picker = ImagePicker();
+    imageFile = await picker.pickImage(imageQuality: 85, source: ImageSource.camera);
+
+    return imageFile!;
+  }
 }

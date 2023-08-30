@@ -48,7 +48,12 @@ class SignInUpViewModel extends ChangeNotifier {
       userList = List<User>.from(json.decode(users).map((userJson) => User.fromJson(userJson)));
     }
 
-    print(userList);
+    if (usernameController.text.isEmpty ||
+        passwordCntroller.text.isEmpty ||
+        confPasswordCntroller.text.isEmpty) {
+      Utils.showSnackBar('Fields cannot be empty', NavigationService.navigatorKey.currentContext!);
+      return;
+    }
 
     if (passwordCntroller.text == confPasswordCntroller.text) {
       User user = User();
