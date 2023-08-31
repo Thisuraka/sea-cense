@@ -1,28 +1,28 @@
 class CucumberPrice {
-  String? category;
+  String? width;
   String? price;
   String? length;
-  String? width;
+  String? category;
 
   CucumberPrice({
-    this.category,
     this.price,
-    this.length,
     this.width,
+    this.length,
+    this.category,
   });
 
   CucumberPrice.fromJson(Map<String, dynamic> json) {
-    category = json['category'];
+    width = json['width'];
     price = json['price'];
     length = json['length'];
-    width = json['width'];
+    category = json['category'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['category'] = category;
+    data['width'] = width;
     data['price'] = price;
     data['length'] = length;
-    data['width'] = width;
+    data['category'] = category;
 
     return data;
   }

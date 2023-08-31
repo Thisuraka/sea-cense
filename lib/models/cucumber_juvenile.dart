@@ -19,18 +19,18 @@ class CucumberJuvenile {
     type = json['class'];
     weight = json['finalWeight'];
     initSize = json['initSizeGroup'];
-    growthRate = json['growthRatePerDay'];
     survivalRate = json['survivalRate'];
     totalBiomass = json['totalBioMass'];
+    growthRate = json['growthRatePerDay'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['class'] = type;
     data['finalWeight'] = weight;
     data['initSizeGroup'] = initSize;
-    data['growthRatePerDay'] = growthRate;
     data['survivalRate'] = survivalRate;
     data['totalBioMass'] = totalBiomass;
+    data['growthRatePerDay'] = growthRate;
 
     return data;
   }

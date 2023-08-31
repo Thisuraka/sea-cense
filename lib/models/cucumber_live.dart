@@ -1,44 +1,44 @@
 class CucumberLive {
   String? type;
+  String? diet;
+  String? family;
+  String? phylum;
+  String? kingdom;
   String? description;
   String? scientificName;
   String? conservationStatus;
-  String? family;
-  String? kingdom;
-  String? phylum;
-  String? diet;
 
   CucumberLive({
     this.type,
+    this.diet,
+    this.family,
+    this.phylum,
+    this.kingdom,
     this.description,
     this.scientificName,
     this.conservationStatus,
-    this.family,
-    this.kingdom,
-    this.phylum,
-    this.diet,
   });
 
   CucumberLive.fromJson(Map<String, dynamic> json) {
     type = json['type'];
+    diet = json['diet'];
+    family = json['family'];
+    phylum = json['phylum'];
+    kingdom = json['kingdom'];
     description = json['description'];
     scientificName = json['scientificName'];
     conservationStatus = json['conservationStatus'];
-    family = json['family'];
-    kingdom = json['kingdom'];
-    phylum = json['phylum'];
-    diet = json['diet'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['type'] = type;
+    data['diet'] = diet;
+    data['family'] = family;
+    data['phylum'] = phylum;
+    data['kingdom'] = kingdom;
     data['description'] = description;
     data['scientificName'] = scientificName;
     data['conservationStatus'] = conservationStatus;
-    data['family'] = family;
-    data['kingdom'] = kingdom;
-    data['phylum'] = phylum;
-    data['diet'] = diet;
 
     return data;
   }
