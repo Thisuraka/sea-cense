@@ -1,17 +1,37 @@
 class UrlConstants {
+  static const String environment = "development";
+  // static const String environment = "production";
+  static const String baseUrl = "http://10.0.2.2:5000";
+
   static String getLiveEndpoint() {
-    return "https://identify-type1-w2qyntknzq-as.a.run.app/type-identification";
+    if (environment == "development") {
+      return "$baseUrl/type-identification";
+    } else {
+      return "https://identify-type1-w2qyntknzq-as.a.run.app/type-identification";
+    }
   }
 
   static String getProcessedEndpoint() {
-    return "https://qualityprediction-w2qyntknzq-uc.a.run.app/quality";
+    if (environment == "development") {
+      return "$baseUrl/quality";
+    } else {
+      return "https://qualityprediction-w2qyntknzq-uc.a.run.app/quality";
+    }
   }
 
   static String getPriceEndpoint() {
-    return "https://predictprice-w2qyntknzq-uc.a.run.app/price-prediction";
+    if (environment == "development") {
+      return "$baseUrl/price-prediction";
+    } else {
+      return "https://predictprice-w2qyntknzq-uc.a.run.app/price-prediction";
+    }
   }
 
   static String getJuvenileEndpoint() {
-    return "https://predictage-w2qyntknzq-uc.a.run.app/age-prediction";
+    if (environment == "development") {
+      return "$baseUrl/age-prediction";
+    } else {
+      return "https://predictage-w2qyntknzq-uc.a.run.app/age-prediction";
+    }
   }
 }

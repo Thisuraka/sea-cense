@@ -22,7 +22,7 @@ class SignInView extends StatelessWidget {
               child: Column(
                 children: [
                   const HeaderWidget(
-                    text: "Welcome back",
+                    text: "Welcome\nback",
                     showBack: true,
                   ),
                   Container(

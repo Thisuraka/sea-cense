@@ -19,6 +19,7 @@ import 'package:sea_cense/utils/utils.dart';
 import 'package:sea_cense/views/home/juvenile_cucumber_details.dart';
 import 'package:sea_cense/views/home/live_cucumber_details.dart';
 import 'package:sea_cense/views/home/price_details.dart';
+import 'package:sea_cense/views/home/processed_cucmber_details.dart';
 import 'package:sea_cense/widgets/common_button_widget.dart';
 
 class CucumberViewModel extends ChangeNotifier {
@@ -29,13 +30,18 @@ class CucumberViewModel extends ChangeNotifier {
   CucumberJuvenile? cucumberJuvenile;
   XFile? imageFile;
   bool isGen = false;
+  bool isCamera = false;
 
   void setGen() {
     isGen = !isGen;
   }
 
   Future<void> addImage(BuildContext context, ProcessorType processorType) async {
-    imageFile = await CameraHelper.selectImages();
+    if (isCamera) {
+      imageFile = await CameraHelper.takeImages();
+    } else {
+      imageFile = await CameraHelper.selectImages();
+    }
 
     // ignore: use_build_context_synchronously
     showDialog<void>(
@@ -46,7 +52,7 @@ class CucumberViewModel extends ChangeNotifier {
           elevation: 0.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
-            height: MediaQuery.of(context).size.height / 2.3,
+            height: MediaQuery.of(context).size.height / 2.5,
             padding: const EdgeInsets.all(10.0),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -86,11 +92,7 @@ class CucumberViewModel extends ChangeNotifier {
 
                   switch (processorType) {
                     case ProcessorType.live:
-                      liveProcess(onSuccess: () {
-                        Navigator.pop(context);
-                        Navigator.of(NavigationService.navigatorKey.currentContext!)
-                            .push(MaterialPageRoute(builder: (context) => const LiveCucumberDetails()));
-                      });
+                      liveProcess();
                       break;
                     case ProcessorType.processed:
                       processedProcess();
@@ -112,7 +114,7 @@ class CucumberViewModel extends ChangeNotifier {
     setGen();
   }
 
-  void liveProcess({required VoidCallback onSuccess}) async {
+  void liveProcess() async {
     Function(int, int)? onSendProgress;
     BaseAPIResponse response =
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getLiveEndpoint());
@@ -126,7 +128,10 @@ class CucumberViewModel extends ChangeNotifier {
           (cucumber) => cucumber.type == response.data['data']['predicted_class'],
         );
         EasyLoading.dismiss();
-        onSuccess();
+
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+        Navigator.of(NavigationService.navigatorKey.currentContext!)
+            .push(MaterialPageRoute(builder: (context) => const LiveCucumberDetails()));
       } catch (e) {
         EasyLoading.dismiss();
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
@@ -140,8 +145,8 @@ class CucumberViewModel extends ChangeNotifier {
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getProcessedEndpoint());
     if (response.error) {
       EasyLoading.dismiss();
-      Utils.showSnackBar(
-          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
+      Utils.showSnackBar('Something went wrong ', NavigationService.navigatorKey.currentContext!);
+      Navigator.pop(NavigationService.navigatorKey.currentContext!);
     } else {
       try {
         cucumberProcessed = CucumberProcessed.fromJson(response.data['data']);
@@ -149,11 +154,16 @@ class CucumberViewModel extends ChangeNotifier {
         EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
-        dataPopup(
-            'Speciman is a ${cucumberProcessed!.predictedType}:\n ${cucumberProcessed!.predictedClass}');
+        if (cucumberProcessed!.predictedClass == "Unknown") {
+          dataPopup('Speciman was not recognized');
+        } else {
+          Navigator.of(NavigationService.navigatorKey.currentContext!)
+              .push(MaterialPageRoute(builder: (context) => const ProcessedCucumberDetails()));
+        }
       } catch (e) {
         EasyLoading.dismiss();
         Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
       }
     }
   }
@@ -192,7 +202,9 @@ class CucumberViewModel extends ChangeNotifier {
           'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
       try {
-        if (response.data['data'] == "Adult") {
+        if (response.data['data'] == "Unknown") {
+          dataPopup('Speciman was not recognized');
+        } else if (response.data['data'] == "Adult") {
           EasyLoading.dismiss();
           Navigator.pop(NavigationService.navigatorKey.currentContext!);
           dataPopup('Speciman was identified as an Adult');

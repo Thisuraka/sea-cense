@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sea_cense/style.dart';
 import 'package:sea_cense/utils/enums/processor_type.dart';
 import 'package:sea_cense/viewmodels/cucumber_viewmodel.dart';
 import 'package:sea_cense/views/onboarding/onboarding.dart';
 import 'package:sea_cense/widgets/home_tile_widget.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -50,6 +52,19 @@ class _HomeViewState extends State<HomeView> {
                       )
                     ],
                   ),
+                ),
+                ToggleSwitch(
+                  initialLabelIndex: 0,
+                  totalSwitches: 2,
+                  activeBgColor: const [defaultColor],
+                  inactiveBgColor: Colors.black26,
+                  labels: const [
+                    'Camera',
+                    'Gallery',
+                  ],
+                  onToggle: (index) {
+                    index == 0 ? model.isCamera = true : model.isCamera = false;
+                  },
                 ),
                 Row(
                   children: [
