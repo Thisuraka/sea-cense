@@ -7,7 +7,7 @@ class UrlConstants {
     if (environment == "development") {
       return "$baseUrl/type-identification";
     } else {
-      return "https://identify-type1-w2qyntknzq-as.a.run.app/type-identification";
+      return "https://identifytype-w2qyntknzq-uc.a.run.app/type-identification";
     }
   }
 

@@ -23,7 +23,7 @@ List<CucumberLive> seaCucumbers = [
       phylum: 'Echinodermata',
       diet: '--'),
   CucumberLive(
-      type: 'B.Vitenesis',
+      type: 'B.Vitiensis',
       description:
           'Bohadschia vitiensis is a species of sea cucumber in the family Holothuriidae. It is also known as the brown sandfish and brown sea cucumber. It is widespread in shallow waters of the Indo-Pacific. It appears to be able to hybridize with Bohadschia argus. Bohadschia vitiensis can grow to 50 cm in total length.',
       scientificName: 'Bohadschia vitiensis',

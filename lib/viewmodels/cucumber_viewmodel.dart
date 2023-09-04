@@ -116,6 +116,7 @@ class CucumberViewModel extends ChangeNotifier {
 
   void liveProcess() async {
     Function(int, int)? onSendProgress;
+
     BaseAPIResponse response =
         await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getLiveEndpoint());
     if (response.error) {
@@ -131,6 +132,7 @@ class CucumberViewModel extends ChangeNotifier {
         EasyLoading.dismiss();
 
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
+
         if (foundCucumberForLive!.type == "Unknown") {
           dataPopup('Speciman was not recognized');
         } else {
@@ -160,7 +162,7 @@ class CucumberViewModel extends ChangeNotifier {
         EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
-        if (cucumberProcessed!.predictedClass == "Unknown") {
+        if (cucumberProcessed!.predictedType == "Unknown") {
           dataPopup('Speciman was not recognized');
         } else {
           Navigator.of(NavigationService.navigatorKey.currentContext!)
