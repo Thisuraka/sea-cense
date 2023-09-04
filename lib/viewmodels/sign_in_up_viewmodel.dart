@@ -33,6 +33,8 @@ class SignInUpViewModel extends ChangeNotifier {
         if (foundUser.username!.toLowerCase() == user.username!.toLowerCase() &&
             foundUser.password == user.password) {
           onSuccess();
+        } else {
+          Utils.showSnackBar('Incorrect password', NavigationService.navigatorKey.currentContext!);
         }
       }
     } else {
