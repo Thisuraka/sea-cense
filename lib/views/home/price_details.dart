@@ -77,7 +77,7 @@ class PriceDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        approxValRow(Icons.crop_16_9_rounded, 'Price',
+                        approxValRow(Icons.price_change_outlined, 'Price',
                             '${getRandomDivisibleByFive(model.cucumberPrice!)} LKR', context, false,
                             special: true),
                         approxValRow(
