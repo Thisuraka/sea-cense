@@ -20,7 +20,7 @@ class LiveDetailRow extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-                color: Colors.white30, fontSize: 16, letterSpacing: 3.0, fontWeight: FontWeight.bold),
+                color: Colors.white60, fontSize: 16, letterSpacing: 3.0, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 5,
@@ -28,7 +28,7 @@ class LiveDetailRow extends StatelessWidget {
           Text(
             desc,
             style: const TextStyle(
-                color: Colors.white30, fontSize: 14, letterSpacing: 3.0, fontWeight: FontWeight.w300),
+                color: Colors.white60, fontSize: 14, letterSpacing: 3.0, fontWeight: FontWeight.w300),
           ),
         ],
       ),

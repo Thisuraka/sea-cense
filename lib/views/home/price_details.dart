@@ -169,7 +169,7 @@ class PriceDetails extends StatelessWidget {
               style: TextStyle(
                   color: special ? const Color(0xD218C5A8) : const Color(0xD20099FF),
                   fontSize: 20,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                   letterSpacing: 3.0),
             ),
           ),
