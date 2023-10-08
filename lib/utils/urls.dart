@@ -1,7 +1,7 @@
 class UrlConstants {
   static const String environment = "development";
   // static const String environment = "production";
-  static const String baseUrl = "http://10.0.2.2:5000";
+  static const String baseUrl = "http://10.0.2.2:8080";
 
   static String getLiveEndpoint() {
     if (environment == "development") {
@@ -32,6 +32,14 @@ class UrlConstants {
       return "$baseUrl/age-prediction";
     } else {
       return "https://predictage-w2qyntknzq-uc.a.run.app/age-prediction";
+    }
+  }
+
+  static String getAllEndpoint() {
+    if (environment == "development") {
+      return "$baseUrl/all";
+    } else {
+      return "";
     }
   }
 }

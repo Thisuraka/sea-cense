@@ -18,14 +18,13 @@ class HomeTileWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: MediaQuery.of(context).size.width / 2.5,
-        height: MediaQuery.of(context).size.width / 2.5,
-        margin: const EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width / 3.0,
+        height: MediaQuery.of(context).size.width / 3.0,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [
               Color(0xFFF0EFEF),
-              Color(0xFFDDD9D9),
+              Color(0xFFEEE9E9),
             ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 0.0),
@@ -40,21 +39,18 @@ class HomeTileWidget extends StatelessWidget {
               offset: const Offset(0, 2), // changes position of shadow
             ),
           ],
-          border: Border.all(color: const Color(0xFFC7C7C7)),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(100),
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(
             icon,
-            size: 80,
+            size: 60,
             color: defaultColor,
             shadows: const <Shadow>[Shadow(color: Color(0xFFFFFFFF), blurRadius: 25.0)],
           ),
           Text(
             title,
-            style: const TextStyle(color: Colors.black38, fontWeight: FontWeight.w400, fontSize: 20),
+            style: const TextStyle(color: Colors.black38, fontWeight: FontWeight.w400, fontSize: 18),
           )
         ]),
       ),

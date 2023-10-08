@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 3.5,
+                    height: MediaQuery.of(context).size.height / 4.5,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/home_bg.png"),
@@ -71,7 +71,12 @@ class _HomeViewState extends State<HomeView> {
                       index == 0 ? model.isCamera = true : model.isCamera = false;
                     },
                   ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       HomeTileWidget(
                         icon: Icons.waves,
@@ -89,7 +94,19 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ],
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: HomeTileWidget(
+                      icon: Icons.dashboard_customize_rounded,
+                      title: 'Full Report',
+                      onTap: () {
+                        model.addImage(context, ProcessorType.all);
+                      },
+                    ),
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       HomeTileWidget(
                         icon: Icons.price_check,
@@ -138,7 +155,7 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

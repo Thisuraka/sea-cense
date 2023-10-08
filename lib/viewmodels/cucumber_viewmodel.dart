@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:sea_cense/models/cucumber_all.dart';
+import 'package:sea_cense/views/home/all_details.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:sea_cense/models/base_api_response.dart';
@@ -33,6 +35,7 @@ class CucumberViewModel extends ChangeNotifier {
   CucumberProcessed? cucumberProcessed;
   CucumberPrice? cucumberPrice;
   CucumberJuvenile? cucumberJuvenile;
+  CucumberAll? cucumberAll;
   XFile? imageFile;
   bool isGen = false;
   bool isCamera = false;
@@ -108,6 +111,8 @@ class CucumberViewModel extends ChangeNotifier {
                     case ProcessorType.juvenile:
                       juvenileProcess();
                       break;
+                    case ProcessorType.all:
+                      allProcess();
                   }
                 },
               ),
@@ -117,6 +122,39 @@ class CucumberViewModel extends ChangeNotifier {
       },
     );
     setGen();
+  }
+
+  void allProcess() async {
+    Function(int, int)? onSendProgress;
+
+    BaseAPIResponse response =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getAllEndpoint());
+    if (response.error) {
+      EasyLoading.dismiss();
+      Navigator.pop(NavigationService.navigatorKey.currentContext!);
+      Utils.showSnackBar(
+          'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
+    } else {
+      try {
+        cucumberAll = CucumberAll(
+          cucumberJuvenile: CucumberJuvenile.fromJson(response.data['data']['age']),
+          cucumberLive: seaCucumbers.firstWhere(
+            (cucumber) => cucumber.type == response.data['data']['live-classifier']['predicted_class'],
+          ),
+          cucumberPrice: priceCatergories[response.data['data']['price']['predicted_class']],
+        );
+
+        EasyLoading.dismiss();
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+
+        Navigator.of(NavigationService.navigatorKey.currentContext!)
+            .push(MaterialPageRoute(builder: (context) => const AllDetails()));
+      } catch (e) {
+        EasyLoading.dismiss();
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+      }
+    }
   }
 
   void liveProcess() async {
