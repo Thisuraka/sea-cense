@@ -279,21 +279,28 @@ class CucumberViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> getSharableScreen() async {
-    screenshotController.capture().then((Uint8List? image) async {
-      if (image != null) {
-        final directory = await getApplicationDocumentsDirectory();
-        final filePath = '${directory.path}/SeaSence Report ${DateTime.now()}.png';
+  Future<void> getSharableScreen(Widget reportBody, BuildContext context) async {
+    screenshotController
+        .captureFromLongWidget(
+      InheritedTheme.captureAll(
+        context,
+        Material(
+          child: reportBody,
+        ),
+      ),
+      delay: const Duration(seconds: 1),
+      context: context,
+    )
+        .then((image) async {
+      Navigator.pop(context);
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/SeaSence Report ${DateTime.now()}.png';
 
-        final File imageFile = File(filePath);
-        await imageFile.writeAsBytes(image);
-        debugPrint('Image saved to: $filePath');
-        await Share.shareXFiles([XFile(filePath)]);
-      } else {
-        Utils.showSnackBar('Could not save report', NavigationService.navigatorKey.currentContext!);
-      }
-    }).catchError((onError) {
-      Utils.showSnackBar('Could not save report', NavigationService.navigatorKey.currentContext!);
+      final File imageFile = File(filePath);
+      await imageFile.writeAsBytes(image);
+      debugPrint('Image saved to: $filePath');
+      await Share.shareXFiles([XFile(filePath)]);
+      
     });
   }
 
