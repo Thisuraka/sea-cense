@@ -176,6 +176,7 @@ class CucumberViewModel extends ChangeNotifier {
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
         if (foundCucumberForLive!.type == "Unknown") {
+          EasyLoading.dismiss();
           dataPopup('Speciman was not recognized');
         } else {
           Navigator.of(NavigationService.navigatorKey.currentContext!)
@@ -205,6 +206,7 @@ class CucumberViewModel extends ChangeNotifier {
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
         if (cucumberProcessed!.predictedType == "Unknown") {
+          EasyLoading.dismiss();
           dataPopup('Speciman was not recognized');
         } else {
           Navigator.of(NavigationService.navigatorKey.currentContext!)
@@ -256,6 +258,7 @@ class CucumberViewModel extends ChangeNotifier {
     } else {
       try {
         if (response.data['data'] == "Unknown") {
+          EasyLoading.dismiss();
           dataPopup('Speciman was not recognized');
         } else if (response.data['data'] == "Adult") {
           EasyLoading.dismiss();
