@@ -357,8 +357,8 @@ class CucumberViewModel extends ChangeNotifier {
   }
 
   getLive(BaseAPIResponse response) {
-    if (response.data['data']['age'] == "Unknown") {
-      return "Unknown";
+    if (response.data['data']['live-classifier']['predicted_class'] == "Unknown") {
+      return response.data['data']['live-classifier']['predicted_class'];
     } else {
       return seaCucumbers.firstWhere(
         (cucumber) => cucumber.type == response.data['data']['live-classifier']['predicted_class'],
