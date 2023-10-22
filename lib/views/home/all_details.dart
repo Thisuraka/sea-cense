@@ -216,8 +216,9 @@ class AllDetails extends StatelessWidget {
               ],
             ),
           ),
-          model.cucumberAll!.cucumberJuvenile! != "Adult" || model.cucumberAll!.cucumberJuvenile! != "Unknown"
-              ? Container(
+          model.cucumberAll!.cucumberJuvenile! == "Adult" || model.cucumberAll!.cucumberJuvenile! == "Unknown"
+              ? Container()
+              : Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 20),
                   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
@@ -258,8 +259,7 @@ class AllDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
-              : Container(),
+                ),
           const SizedBox(
             height: 20,
           ),

@@ -136,7 +136,7 @@ class CucumberViewModel extends ChangeNotifier {
     } else {
       try {
         cucumberAll = CucumberAll(
-          cucumberJuvenile: CucumberJuvenile.fromJson(response.data['data']['age']),
+          cucumberJuvenile: getJuvenile(response),
           cucumberLive: seaCucumbers.firstWhere(
             (cucumber) => cucumber.type == response.data['data']['live-classifier']['predicted_class'],
           ),
@@ -348,5 +348,13 @@ class CucumberViewModel extends ChangeNotifier {
         );
       },
     );
+  }
+
+  getJuvenile(BaseAPIResponse response) {
+    if (response.data['data']['age'] == "Unknown" || response.data['data']['age'] == "Adult") {
+      return response.data['data']['age'];
+    } else {
+      return CucumberJuvenile.fromJson(response.data['data']['age']);
+    }
   }
 }
