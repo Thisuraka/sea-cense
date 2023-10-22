@@ -41,7 +41,7 @@ class SignInView extends StatelessWidget {
                   RoundedTextboxWidget(
                     controller: model.passwordCntroller,
                     labelText: 'Password',
-                    obscureText: true,
+                    isPassword: true,
                   ),
                   const SizedBox(
                     height: 20,

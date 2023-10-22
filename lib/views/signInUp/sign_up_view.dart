@@ -40,11 +40,12 @@ class SignUpView extends StatelessWidget {
                   RoundedTextboxWidget(
                     controller: model.passwordCntroller,
                     labelText: 'Password',
-                    obscureText: true,
+                    isPassword: true,
                   ),
                   RoundedTextboxWidget(
                     controller: model.confPasswordCntroller,
-                    labelText: 'Confirm Password', obscureText: true,
+                    labelText: 'Confirm Password',
+                    isPassword: true,
                   ),
                   const SizedBox(
                     height: 20,
