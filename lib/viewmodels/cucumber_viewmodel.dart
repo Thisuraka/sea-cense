@@ -137,9 +137,7 @@ class CucumberViewModel extends ChangeNotifier {
       try {
         cucumberAll = CucumberAll(
           cucumberJuvenile: getJuvenile(response),
-          cucumberLive: seaCucumbers.firstWhere(
-            (cucumber) => cucumber.type == response.data['data']['live-classifier']['predicted_class'],
-          ),
+          cucumberLive: getLive(response),
           cucumberPrice: priceCatergories[response.data['data']['price']['predicted_class']],
         );
 
@@ -355,6 +353,16 @@ class CucumberViewModel extends ChangeNotifier {
       return response.data['data']['age'];
     } else {
       return CucumberJuvenile.fromJson(response.data['data']['age']);
+    }
+  }
+
+  getLive(BaseAPIResponse response) {
+    if (response.data['data']['age'] == "Unknown") {
+      return "Unknown";
+    } else {
+      return seaCucumbers.firstWhere(
+        (cucumber) => cucumber.type == response.data['data']['live-classifier']['predicted_class'],
+      );
     }
   }
 }

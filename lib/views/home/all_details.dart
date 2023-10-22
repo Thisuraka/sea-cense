@@ -105,8 +105,9 @@ class AllDetails extends StatelessWidget {
               child: Image.file(File(model.imageFile!.path)),
             ),
           ),
-          model.cucumberAll!.cucumberLive! != "Unkown"
-              ? Container(
+          model.cucumberAll!.cucumberLive! == "Unknown"
+              ? Container()
+              : Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 20),
                   padding: const EdgeInsets.all(10),
@@ -166,8 +167,7 @@ class AllDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
-              : Container(),
+                ),
           Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(top: 20),
