@@ -16,7 +16,9 @@ class SignInUpViewModel extends ChangeNotifier {
 
   void signin({required VoidCallback onSuccess}) async {
     String? users = await SharedPreference.getUser();
-    userList = List<User>.from(json.decode(users!).map((userJson) => User.fromJson(userJson)));
+    if (users != null) {
+      userList = List<User>.from(json.decode(users).map((userJson) => User.fromJson(userJson)));
+    }
 
     User user = User();
     user.username = usernameController.text;

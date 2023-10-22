@@ -136,8 +136,8 @@ class CucumberViewModel extends ChangeNotifier {
     } else {
       try {
         cucumberAll = CucumberAll(
-          cucumberJuvenile: getJuvenile(response),
-          cucumberLive: getLive(response),
+          cucumberJuvenile: getAllJuvenile(response),
+          cucumberLive: getAllLive(response),
           cucumberPrice: priceCatergories[response.data['data']['price']['predicted_class']],
         );
 
@@ -149,7 +149,7 @@ class CucumberViewModel extends ChangeNotifier {
       } catch (e) {
         EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
-        Utils.showSnackBar('Something went wrong', NavigationService.navigatorKey.currentContext!);
+        Utils.showSnackBar('Something went wrong -- $e', NavigationService.navigatorKey.currentContext!);
       }
     }
   }
@@ -348,7 +348,7 @@ class CucumberViewModel extends ChangeNotifier {
     );
   }
 
-  getJuvenile(BaseAPIResponse response) {
+  getAllJuvenile(BaseAPIResponse response) {
     if (response.data['data']['age'] == "Unknown" || response.data['data']['age'] == "Adult") {
       return response.data['data']['age'];
     } else {
@@ -356,7 +356,7 @@ class CucumberViewModel extends ChangeNotifier {
     }
   }
 
-  getLive(BaseAPIResponse response) {
+  getAllLive(BaseAPIResponse response) {
     if (response.data['data']['live-classifier']['predicted_class'] == "Unknown") {
       return response.data['data']['live-classifier']['predicted_class'];
     } else {
