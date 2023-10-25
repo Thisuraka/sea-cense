@@ -106,9 +106,7 @@ class AllDetails extends StatelessWidget {
             ),
           ),
           model.cucumberAll!.cucumberLive! == "Unknown"
-              ? Container(
-                  child: Text(model.cucumberAll!.cucumberLive!),
-                )
+              ? Container()
               : Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 20),
