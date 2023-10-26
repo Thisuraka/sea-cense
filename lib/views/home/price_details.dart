@@ -30,19 +30,31 @@ class PriceDetails extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(top: 40),
-                      child: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.only(top: 40),
+                          child: const Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 70,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 40),
+                        child: const Text(
+                          "Cucumber Price Prediction",
+                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
@@ -150,7 +162,7 @@ class PriceDetails extends StatelessWidget {
             child: Text(
               title,
               style: const TextStyle(
-                color: Colors.white54,
+                color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w300,
                 letterSpacing: 3.0,
@@ -167,7 +179,7 @@ class PriceDetails extends StatelessWidget {
             child: Text(
               value,
               style: TextStyle(
-                  color: special ? const Color(0xD218C5A8) : const Color(0xD20099FF),
+                  color: special ? const Color(0xD218CAAC) : const Color(0xD216A1FD),
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 3.0),

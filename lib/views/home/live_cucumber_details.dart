@@ -27,19 +27,31 @@ class LiveCucumberDetails extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(top: 40),
-                      child: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.only(top: 40),
+                          child: const Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 70,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 40),
+                        child: const Text(
+                          "Processed Cucumber Prediction",
+                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
@@ -77,7 +89,7 @@ class LiveCucumberDetails extends StatelessWidget {
                         Text(
                           model.foundCucumberForLive!.type!,
                           style: const TextStyle(
-                              color: Color(0xD20099FF),
+                              color: Color(0xD216A1FD),
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 3.0),
@@ -89,14 +101,19 @@ class LiveCucumberDetails extends StatelessWidget {
                           model.foundCucumberForLive!.scientificName!,
                           style: const TextStyle(
                               color: Colors.white54,
-                              fontSize: 14,
-                              letterSpacing: 3.0,
-                              fontStyle: FontStyle.italic),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 3.0),
                         ),
                         const CustomDivider(),
                         Text(
                           model.foundCucumberForLive!.description!,
-                          style: const TextStyle(color: Colors.white30, fontSize: 14, letterSpacing: 3.0),
+                          textAlign: TextAlign.justify,
+                          style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                              letterSpacing: 3.0,
+                              fontWeight: FontWeight.w400),
                         ),
                         LiveDetailRow(
                           title: 'Conservation Status',

@@ -22,8 +22,8 @@ class AllDetails extends StatelessWidget {
             padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
             decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
-                Color(0xFF051D4C),
-                Color(0xFF0D4E83),
+                Color(0xFF000613),
+                Color(0xFF04223B),
               ], begin: Alignment.topLeft, end: Alignment.centerRight),
             ),
             child: SingleChildScrollView(
@@ -76,8 +76,8 @@ class AllDetails extends StatelessWidget {
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
         gradient: LinearGradient(colors: [
-          Color(0xFF0D4E83),
-          Color(0xFF051D4C),
+          Color(0xFF0D1C3A),
+          Color(0xFF172531),
         ], begin: Alignment.topLeft, end: Alignment.centerRight),
       ),
       child: Column(

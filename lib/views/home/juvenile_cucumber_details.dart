@@ -27,31 +27,31 @@ class JuvenileCucumberDetails extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(top: 40),
-                      child: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.only(top: 40),
+                          child: const Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Juvenile Size Prediction",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color(0xD2BBE4FF),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: 3.0),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 70,
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 40),
+                        child: const Text(
+                          "Juvenile Size Prediction",
+                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height / 4,
@@ -89,7 +89,7 @@ class JuvenileCucumberDetails extends StatelessWidget {
                         Text(
                           model.cucumberJuvenile!.initSize!,
                           style: const TextStyle(
-                              color: Color(0xD20099FF),
+                              color: Color(0xD216A1FD),
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 3.0),
@@ -101,8 +101,8 @@ class JuvenileCucumberDetails extends StatelessWidget {
                           'Holothuria Scabra',
                           style: TextStyle(
                               color: Color(0xD2FFFFFF),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w100,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
                               letterSpacing: 3.0),
                         ),
                         const SizedBox(
