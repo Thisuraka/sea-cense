@@ -20,7 +20,7 @@ class RoundedTextboxWidget extends StatefulWidget {
     this.enabled = true,
     this.minLine = 1,
     this.maxLine = 1,
-    this.verticalMargin = 20,
+    this.verticalMargin = 10,
     required this.labelText,
     this.validator,
     this.isPassword = false,
@@ -44,7 +44,7 @@ class _RoundedTextboxWidgetState extends State<RoundedTextboxWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 50,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 45, vertical: widget.verticalMargin),
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0.0),
@@ -62,7 +62,7 @@ class _RoundedTextboxWidgetState extends State<RoundedTextboxWidget> {
         controller: widget.controller,
         obscureText: isVisible,
         cursorColor: Colors.purple,
-        cursorHeight: 15,
+        cursorHeight: 22,
         decoration: InputDecoration(
             border: InputBorder.none,
             hintText: widget.labelText,
