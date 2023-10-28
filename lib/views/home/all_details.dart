@@ -132,7 +132,7 @@ class AllDetails extends StatelessWidget {
                       Text(
                         model.cucumberAll!.cucumberLive.scientificName,
                         style: const TextStyle(
-                            color: Colors.white54,
+                            color: Colors.white,
                             fontSize: 14,
                             letterSpacing: 3.0,
                             fontStyle: FontStyle.italic),
@@ -140,7 +140,7 @@ class AllDetails extends StatelessWidget {
                       const CustomDivider(),
                       Text(
                         model.cucumberAll!.cucumberLive.description,
-                        style: const TextStyle(color: Colors.white30, fontSize: 14, letterSpacing: 3.0),
+                        style: const TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 3.0),
                       ),
                       LiveDetailRow(
                         title: 'Conservation Status',
