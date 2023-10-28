@@ -168,54 +168,60 @@ class AllDetails extends StatelessWidget {
                     ],
                   ),
                 ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(top: 20),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            decoration: const BoxDecoration(
-              color: Color(0x29000000),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                approxValRow(Icons.price_change_outlined, 'Price',
-                    '${getRandomDivisibleByFive(model.cucumberAll!.cucumberPrice!)} LKR', context, false,
-                    special: true),
-                approxValRow(
-                    Icons.crop_16_9_rounded,
-                    'Length',
-                    '${generateRandomNumber(model.cucumberAll!.cucumberPrice!.category!, model.cucumberAll!.cucumberPrice!.length!)} cm',
-                    context,
-                    false),
-                approxValRow(
-                    Icons.crop_16_9_rounded,
-                    'Width',
-                    '${generateRandomNumber(model.cucumberAll!.cucumberPrice!.category!, model.cucumberAll!.cucumberPrice!.width!)} g',
-                    context,
-                    true),
-                const SizedBox(
-                  height: 5,
+          model.cucumberAll!.cucumberPrice! == "Unknown"
+              ? Container()
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  decoration: const BoxDecoration(
+                    color: Color(0x29000000),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      approxValRow(
+                          Icons.price_change_outlined,
+                          'Price',
+                          '${getRandomDivisibleByFive(model.cucumberAll!.cucumberPrice!)} LKR',
+                          context,
+                          false,
+                          special: true),
+                      approxValRow(
+                          Icons.crop_16_9_rounded,
+                          'Length',
+                          '${generateRandomNumber(model.cucumberAll!.cucumberPrice!.category!, model.cucumberAll!.cucumberPrice!.length!)} cm',
+                          context,
+                          false),
+                      approxValRow(
+                          Icons.crop_16_9_rounded,
+                          'Width',
+                          '${generateRandomNumber(model.cucumberAll!.cucumberPrice!.category!, model.cucumberAll!.cucumberPrice!.width!)} g',
+                          context,
+                          true),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const CustomDivider(),
+                      LiveDetailRow(
+                        title: 'Price range (LKR)',
+                        desc: model.cucumberAll!.cucumberPrice!.price!,
+                      ),
+                      LiveDetailRow(
+                        title: 'Length range (cm)',
+                        desc: model.cucumberAll!.cucumberPrice!.length!,
+                      ),
+                      LiveDetailRow(
+                        title: 'Width range (g)',
+                        desc: model.cucumberAll!.cucumberPrice!.width!,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
-                const CustomDivider(),
-                LiveDetailRow(
-                  title: 'Price range (LKR)',
-                  desc: model.cucumberAll!.cucumberPrice!.price!,
-                ),
-                LiveDetailRow(
-                  title: 'Length range (cm)',
-                  desc: model.cucumberAll!.cucumberPrice!.length!,
-                ),
-                LiveDetailRow(
-                  title: 'Width range (g)',
-                  desc: model.cucumberAll!.cucumberPrice!.width!,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
-          ),
           model.cucumberAll!.cucumberJuvenile! == "Adult" || model.cucumberAll!.cucumberJuvenile! == "Unknown"
               ? Container()
               : Container(

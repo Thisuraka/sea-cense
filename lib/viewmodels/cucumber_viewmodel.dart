@@ -138,14 +138,20 @@ class CucumberViewModel extends ChangeNotifier {
         cucumberAll = CucumberAll(
           cucumberJuvenile: getAllJuvenile(response),
           cucumberLive: getAllLive(response),
-          cucumberPrice: priceCatergories[response.data['data']['price']['predicted_class']],
+          cucumberPrice: getAllPrice(response),
         );
 
-        EasyLoading.dismiss();
-        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+        if (cucumberAll!.cucumberLive == "Unknown" && cucumberAll!.cucumberPrice == "Unknown") {
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
+          dataPopup('Speciman was not recognized');
+        } else {
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
-        Navigator.of(NavigationService.navigatorKey.currentContext!)
-            .push(MaterialPageRoute(builder: (context) => const AllDetails()));
+          Navigator.of(NavigationService.navigatorKey.currentContext!)
+              .push(MaterialPageRoute(builder: (context) => const AllDetails()));
+        }
       } catch (e) {
         EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
@@ -169,14 +175,14 @@ class CucumberViewModel extends ChangeNotifier {
         foundCucumberForLive = seaCucumbers.firstWhere(
           (cucumber) => cucumber.type == response.data['data']['predicted_class'],
         );
-        EasyLoading.dismiss();
-
-        Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
         if (foundCucumberForLive!.type == "Unknown") {
           EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
           dataPopup('Speciman was not recognized');
         } else {
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
           Navigator.of(NavigationService.navigatorKey.currentContext!)
               .push(MaterialPageRoute(builder: (context) => const LiveCucumberDetails()));
         }
@@ -200,13 +206,13 @@ class CucumberViewModel extends ChangeNotifier {
       try {
         cucumberProcessed = CucumberProcessed.fromJson(response.data['data']);
 
-        EasyLoading.dismiss();
-        Navigator.pop(NavigationService.navigatorKey.currentContext!);
-
-        if (cucumberProcessed!.predictedType == "Unknown") {
+        if (cucumberProcessed!.predictedType == "Unkown") {
           EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
           dataPopup('Speciman was not recognized');
         } else {
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
           Navigator.of(NavigationService.navigatorKey.currentContext!)
               .push(MaterialPageRoute(builder: (context) => const ProcessedCucumberDetails()));
         }
@@ -229,13 +235,20 @@ class CucumberViewModel extends ChangeNotifier {
           'Something went wrong -- ${response.status}', NavigationService.navigatorKey.currentContext!);
     } else {
       try {
-        cucumberPrice = priceCatergories[response.data['data']['predicted_class']];
+        if (response.data['data']['predicted_class'] == "Unknown") {
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
+          dataPopup('Speciman was not recognized');
+        } else {
+          cucumberPrice = priceCatergories[response.data['data']['predicted_class']];
 
-        EasyLoading.dismiss();
-        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
-        Navigator.of(NavigationService.navigatorKey.currentContext!)
-            .push(MaterialPageRoute(builder: (context) => const PriceDetails()));
+          Navigator.of(NavigationService.navigatorKey.currentContext!)
+              .push(MaterialPageRoute(builder: (context) => const PriceDetails()));
+        }
+        notifyListeners();
       } catch (e) {
         EasyLoading.dismiss();
         Navigator.pop(NavigationService.navigatorKey.currentContext!);
@@ -257,6 +270,7 @@ class CucumberViewModel extends ChangeNotifier {
       try {
         if (response.data['data'] == "Unknown") {
           EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
           dataPopup('Speciman was not recognized');
         } else if (response.data['data'] == "Adult") {
           EasyLoading.dismiss();
@@ -363,6 +377,15 @@ class CucumberViewModel extends ChangeNotifier {
       return seaCucumbers.firstWhere(
         (cucumber) => cucumber.type == response.data['data']['live-classifier']['predicted_class'],
       );
+    }
+  }
+
+  getAllPrice(BaseAPIResponse response) {
+    if (response.data['data']['predicted_class'] == "Unknown" ||
+        response.data['data']['predicted_class'] == null) {
+      return "Unknown";
+    } else {
+      return priceCatergories[response.data['data']['predicted_class']];
     }
   }
 }

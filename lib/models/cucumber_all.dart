@@ -6,7 +6,7 @@ import 'package:sea_cense/models/cucumber_price.dart';
 class CucumberAll {
   dynamic cucumberLive;
   dynamic cucumberJuvenile;
-  CucumberPrice? cucumberPrice;
+  dynamic cucumberPrice;
 
   CucumberAll({
     this.cucumberLive,
