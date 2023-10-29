@@ -50,7 +50,7 @@ class PriceDetails extends StatelessWidget {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(top: 40),
                         child: const Text(
-                          "Cucumber Price Prediction",
+                          "Price Prediction",
                           style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       )

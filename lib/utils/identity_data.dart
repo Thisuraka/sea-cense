@@ -56,6 +56,6 @@ List<CucumberLive> seaCucumbers = [
 Map<String, CucumberPrice> priceCatergories = {
   'img_cat1': CucumberPrice(category: 'img_cat1', price: '600-650', length: '15-20', width: '350-450'),
   'img_cat2': CucumberPrice(category: 'img_cat2', price: '800-900', length: '21-25', width: '451-600'),
-  'img_cat3': CucumberPrice(category: 'img_cat3', price: '1100-1300', length: '15-20', width: '601-750'),
+  'img_cat3': CucumberPrice(category: 'img_cat3', price: '1100-1300', length: '26-31', width: '601-750'),
   'Unknown': CucumberPrice(category: 'Unknown', price: '--', length: '--', width: '--'),
 };

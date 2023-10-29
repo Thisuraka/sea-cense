@@ -47,7 +47,7 @@ class LiveCucumberDetails extends StatelessWidget {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(top: 40),
                         child: const Text(
-                          "Processed Cucumber Prediction",
+                          "Type Identification",
                           style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       )
