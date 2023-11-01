@@ -1,6 +1,6 @@
 class UrlConstants {
-  static const String environment = "development";
-  // static const String environment = "production";
+  // static const String environment = "development";
+  static const String environment = "production";
   static const String baseUrl = "http://10.0.2.2:8080";
   // static const String baseUrl = "http://192.168.1.4:8080";
 
@@ -8,7 +8,7 @@ class UrlConstants {
     if (environment == "development") {
       return "$baseUrl/type-identification";
     } else {
-      return "https://identifytype-w2qyntknzq-uc.a.run.app/type-identification";
+      return "https://identifytype-b4m2z2hufa-as.a.run.app/type-identification";
     }
   }
 
@@ -16,7 +16,7 @@ class UrlConstants {
     if (environment == "development") {
       return "$baseUrl/quality";
     } else {
-      return "https://qualityprediction-w2qyntknzq-uc.a.run.app/quality";
+      return "https://qualityprediction-b4m2z2hufa-as.a.run.app/quality";
     }
   }
 
@@ -24,7 +24,7 @@ class UrlConstants {
     if (environment == "development") {
       return "$baseUrl/price-prediction";
     } else {
-      return "https://predictprice-w2qyntknzq-uc.a.run.app/price-prediction";
+      return "https://predictprice-b4m2z2hufa-as.a.run.app/price-prediction";
     }
   }
 
@@ -32,7 +32,7 @@ class UrlConstants {
     if (environment == "development") {
       return "$baseUrl/age-prediction";
     } else {
-      return "https://predictage-w2qyntknzq-uc.a.run.app/age-prediction";
+      return "https://predictage-b4m2z2hufa-as.a.run.app/age-prediction";
     }
   }
 
