@@ -112,6 +112,10 @@ class CucumberViewModel extends ChangeNotifier {
                       break;
                     case ProcessorType.all:
                       allProcess();
+                      break;
+                    case ProcessorType.allAlt:
+                      allAltProcess();
+                      break;
                   }
                 },
               ),
@@ -151,6 +155,63 @@ class CucumberViewModel extends ChangeNotifier {
 
           Navigator.of(NavigationService.navigatorKey.currentContext!)
               .push(MaterialPageRoute(builder: (context) => const AllDetails()));
+        }
+      } catch (e) {
+        EasyLoading.dismiss();
+        Navigator.pop(NavigationService.navigatorKey.currentContext!);
+        Utils.showSnackBar('Something went wrong -- $e', NavigationService.navigatorKey.currentContext!);
+      }
+    }
+  }
+
+  void allAltProcess() async {
+    Function(int, int)? onSendProgress;
+
+    BaseAPIResponse juvenileResponse =
+        await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getJuvenileEndpoint());
+    if (juvenileResponse.error) {
+      EasyLoading.dismiss();
+      Navigator.pop(NavigationService.navigatorKey.currentContext!);
+      Utils.showSnackBar('Something went wrong -- ${juvenileResponse.status}',
+          NavigationService.navigatorKey.currentContext!);
+    } else {
+      try {
+        BaseAPIResponse liveResponse =
+            await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getLiveEndpoint());
+
+        if (liveResponse.error) {
+          EasyLoading.dismiss();
+          Navigator.pop(NavigationService.navigatorKey.currentContext!);
+          Utils.showSnackBar('Something went wrong -- ${liveResponse.status}',
+              NavigationService.navigatorKey.currentContext!);
+        } else {
+          BaseAPIResponse priceResponse =
+              await service.uploadImage(imageFile!, onSendProgress, UrlConstants.getPriceEndpoint());
+
+          if (priceResponse.error) {
+            EasyLoading.dismiss();
+            Navigator.pop(NavigationService.navigatorKey.currentContext!);
+            Utils.showSnackBar('Something went wrong -- ${priceResponse.status}',
+                NavigationService.navigatorKey.currentContext!);
+          } else {
+            cucumberAll = CucumberAll(
+              cucumberJuvenile: getAlllAltJuvenile(juvenileResponse),
+              cucumberLive: getAlllAltLive(liveResponse),
+              cucumberPrice: getAlllAltPrice(priceResponse),
+            );
+
+            if (cucumberAll!.cucumberLive == "Unknown" && cucumberAll!.cucumberPrice == "Unknown") {
+              EasyLoading.dismiss();
+              Navigator.pop(NavigationService.navigatorKey.currentContext!);
+              dataPopup('Speciman was not recognized');
+            } else {
+              EasyLoading.dismiss();
+              Navigator.pop(NavigationService.navigatorKey.currentContext!);
+
+              Navigator.of(NavigationService.navigatorKey.currentContext!)
+                  .push(MaterialPageRoute(builder: (context) => const AllDetails()));
+            }
+          }
         }
       } catch (e) {
         EasyLoading.dismiss();
@@ -381,6 +442,33 @@ class CucumberViewModel extends ChangeNotifier {
   }
 
   getAllPrice(BaseAPIResponse response) {
+    if (response.data['data']['predicted_class'] == "Unknown" ||
+        response.data['data']['predicted_class'] == null) {
+      return "Unknown";
+    } else {
+      return priceCatergories[response.data['data']['predicted_class']];
+    }
+  }
+
+  getAlllAltJuvenile(BaseAPIResponse response) {
+    if (response.data['data'] == "Unknown" || response.data['data'] == "Adult") {
+      return response.data['data'];
+    } else {
+      return CucumberJuvenile.fromJson(response.data['data']);
+    }
+  }
+
+  getAlllAltLive(BaseAPIResponse response) {
+    if (response.data['data']['predicted_class'] == "Unknown") {
+      return response.data['data']['predicted_class'];
+    } else {
+      return seaCucumbers.firstWhere(
+        (cucumber) => cucumber.type == response.data['data']['predicted_class'],
+      );
+    }
+  }
+
+  getAlllAltPrice(BaseAPIResponse response) {
     if (response.data['data']['predicted_class'] == "Unknown" ||
         response.data['data']['predicted_class'] == null) {
       return "Unknown";

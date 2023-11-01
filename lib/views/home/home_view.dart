@@ -102,6 +102,10 @@ class _HomeViewState extends State<HomeView> {
                       onTap: () {
                         model.addImage(context, ProcessorType.all);
                       },
+                      onDoubleTap: (){
+                        
+                        model.addImage(context, ProcessorType.allAlt);
+                      },
                     ),
                   ),
                   Row(

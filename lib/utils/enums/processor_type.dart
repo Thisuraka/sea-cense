@@ -1,1 +1,1 @@
-enum ProcessorType { live, processed, price, juvenile, all }
+enum ProcessorType { live, processed, price, juvenile, all,allAlt }

@@ -40,7 +40,7 @@ class UrlConstants {
     if (environment == "development") {
       return "$baseUrl/all";
     } else {
-      return "";
+      return "https://all-b4m2z2hufa-uc.a.run.app/all";
     }
   }
 }

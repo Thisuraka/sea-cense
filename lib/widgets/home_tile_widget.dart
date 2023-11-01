@@ -6,17 +6,20 @@ class HomeTileWidget extends StatelessWidget {
   final IconData icon;
   final String title;
   final Function()? onTap;
+  final Function()? onDoubleTap;
   const HomeTileWidget({
     Key? key,
     required this.icon,
     required this.title,
     required this.onTap,
+    this.onDoubleTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      onDoubleTap: onDoubleTap,
       child: Container(
         width: MediaQuery.of(context).size.width / 3.0,
         height: MediaQuery.of(context).size.width / 3.0,
